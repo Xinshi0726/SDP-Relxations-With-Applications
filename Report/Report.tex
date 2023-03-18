@@ -17,8 +17,9 @@ Our goal is to find an approximation for the Traveling Salesman Problem using se
 \item Travelling Salesman Problem
 \item Semidefinite Programmging
 \item Relaxation
-\item Code 
-\item Findings
+\item Obtaining a visualization
+\item Proofs
+\item scope and limitations
 \end{itemize}
 
 \section{Travelling Salesman Problem}
@@ -31,4 +32,21 @@ have the added constraint that you start at the parking lot and will need to com
 
 As our goal is to find an \emph{efficient} route, we will be satisfied with an approximation. 
 Or a series of buidlings to visit that is close the optimal.
+
+\section{Visualization}
+- table of result
+- for small examples, we find the acutal solution (brute force), or a solution (integer programming) and check how 
+good our bound is
+
+vhttps://www.cs.cmu.edu/~anupamg/adv-approx/lecture14.pdf used "randomized rounding" to find a max cut.
+i.e. if $p_{ij}$ is close to -1, then we should cut it. We attempt do do something similar
+
+
+\section{Proofs}
+
+- can we prove the runtime
+- can we prove how good of a lower bound we have?
+- what are some easy things to prove?
+
+\section{Scope and limitations}
 \end{document}
