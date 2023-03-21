@@ -22,18 +22,27 @@ Our goal is to find an approximation for the Traveling Salesman Problem using se
 \item scope and limitations
 \end{itemize}
 
-\section{Travelling Salesman Problem}
+\section{Introduction}
+
+\subsection{Travelling Salesman Problem}
 Imagine you are prospective student touring RPI. You have a list of buildings you want to visit.
 You have on hand the distance between each pair of buildings. Is it possible to vist each building exactly one?
 (can't not teleport). If so, what is the shortest possible distance you will need to travel. We also 
 have the added constraint that you start at the parking lot and will need to come back to the parking lot.
 
-
-
 As our goal is to find an \emph{efficient} route, we will be satisfied with an approximation. 
 Or a series of buidlings to visit that is close the optimal.
 
-\section{Visualization}
+\subsection{Max Cut}
+
+\section{Semidefinite Programming}
+
+\section{Relaxation}
+
+\subsection{Proofs}
+
+\section{Findings}
+\subsection{Visualization}
 - table of result
 - for small examples, we find the acutal solution (brute force), or a solution (integer programming) and check how 
 good our bound is
@@ -41,12 +50,12 @@ good our bound is
 vhttps://www.cs.cmu.edu/~anupamg/adv-approx/lecture14.pdf used "randomized rounding" to find a max cut.
 i.e. if $p_{ij}$ is close to -1, then we should cut it. We attempt do do something similar
 
+\section{Discussion}
 
-\section{Proofs}
 
 - can we prove the runtime
 - can we prove how good of a lower bound we have?
 - what are some easy things to prove?
 
-\section{Scope and limitations}
+\subsection{Scope and limitations}
 \end{document}
