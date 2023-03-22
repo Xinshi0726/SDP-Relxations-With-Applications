@@ -12,26 +12,31 @@
 \begin{document}
 
 \section{Introduction}
-- how SDP encapsulates Linear programming
-- use cases for SDP
 
 Our goal is to ...., using Semidefinite programming. ... we find that results ....
 
-
--
-
-\subsection{Travelling Salesman Problem}
+\subsection{Travelling Salesman Problem} % algorithm listings
 Imagine you are prospective student touring RPI. You have a list of buildings you want to visit.
-You have on hand the distance between each pair of buildings. Is it possible to vist each building exactly one?
-(can't not teleport). If so, what is the shortest possible distance you will need to travel. We also 
-have the added constraint that you start at the parking lot and will need to come back to the parking lot.
-
+You have on hand the distance between each pair of buildings. 
+Is it possible to find a path such that each buidling is visited exactly once? 
+If so, what is the shortest possible distance you will need to travel. 
+Since you toruing the college, it is likely you have some method of transportation to came from and need to come back to . 
+We have the added constraint that you start at the parking lot and will need to come back to the parking lot.
+This is know as the travelling salesman.
+% One sentence Goal
 As our goal is to find an \emph{efficient} route, we will be satisfied with an approximation. 
 Or a series of buidlings to visit that is close the optimal.
 
-\subsection{Max Cut}
+\subsection{Max Cut} % algorithm listings
+We would like to partition our graph into two set of vertices such that the sum of the edge weights between the two partitiions is maximized. 
 
-\section{Semidefinite Programming}
+Applications include 
+examples: Clustering
+- Intuition: The distances between the two partitiions are the greatest so they have a high likelihood of belonging to two different categories. 
+
+% How is this different form the max cut 
+
+\section{Semidefinite Programming}  % objective functions
 
 \subsection{Recap of Linear Programming}
 To give background on semi-definite programming we first start with a brief recap of linear programming. Suppose that you have control over a set of variables and you are attempting to find a selection for each of these variables such that some linear combination is maximized / minimized. To make this more complicated suppose that these variables each have a constraint that must be met.
@@ -91,10 +96,14 @@ In total we  can write out a rigorous form of Semdefinite programming.
 \end{align*}
 
 
-\section{Relaxation}
+\section{Relaxation}   % objective functions
 \subsection{Proofs}
 - performance guarantees
 - proof of relaxations (how accurate + how it works)
+
+
+Integrality Gap: ratio btwen optimal / relaxation 
+
 
 
 \section{Experimental Results}
