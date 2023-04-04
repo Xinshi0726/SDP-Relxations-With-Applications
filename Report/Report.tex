@@ -6,14 +6,44 @@
 \usepackage[makeroom]{cancel}
 \usepackage{enumitem}
 
-
 \usepackage[normalem]{ulem} 
+
+\newcommand{\lecture}[3]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+      \hbox to 6.28in { {\bf CSCI-4968: ML and Optimization}
+      \hfill Spring 2023 }
+        \vspace{5mm}
+        \hbox to 6.28in { {\Large \hfill #1 \hfill} }
+        \vspace{2mm}
+         \hbox to 6.28in { {\it #2 \hfill #3 \ \ \ } }
+        % \vspace{2mm}
+      }
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+}
 
 \begin{document}
 
-\section{Introduction}
+\lecture{Semidefinite Programming}{}{For approximating Max Cut and Travelling Salesman}
 
-Our goal is to ...., using Semidefinite programming. ... we find that results ....
+\section{Overview}
+
+NP-Complete Problem refers to a set of very "hard" problems that are verifiable in polynomial time. 
+It is largely believed there exists no polynomial time solution, 
+\subsection{Max Cut} % algorithm listings
+We would like to partition our graph into two set of vertices such that the sum of the edge weights between the two partitiions is maximized. 
+
+Applications include 
+examples: Clustering
+- Intuition: The distances between the two partitiions are the greatest so they have a high likelihood of belonging to two different categories. 
 
 \subsection{Travelling Salesman Problem} % algorithm listings
 Imagine you are prospective student touring RPI. You have a list of buildings you want to visit.
@@ -27,12 +57,6 @@ This is know as the travelling salesman.
 As our goal is to find an \emph{efficient} route, we will be satisfied with an approximation. 
 Or a series of buidlings to visit that is close the optimal.
 
-\subsection{Max Cut} % algorithm listings
-We would like to partition our graph into two set of vertices such that the sum of the edge weights between the two partitiions is maximized. 
-
-Applications include 
-examples: Clustering
-- Intuition: The distances between the two partitiions are the greatest so they have a high likelihood of belonging to two different categories. 
 
 % How is this different form the max cut 
 

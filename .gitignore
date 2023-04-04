@@ -1,3 +1,4 @@
+.DS_Store
 Report/*.aux
 Report/*.fdb_latexmk
 Report/*.fls 
