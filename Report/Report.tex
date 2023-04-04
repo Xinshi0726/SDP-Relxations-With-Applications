@@ -34,10 +34,8 @@
 
 \lecture{Semidefinite Programming}{}{For approximating Max Cut and Travelling Salesman}
 
-\section{Overview}
+\section{Motivation}
 
-NP-Complete Problem refers to a set of very "hard" problems that are verifiable in polynomial time. 
-It is largely believed there exists no polynomial time solution, 
 \subsection{Max Cut} % algorithm listings
 We would like to partition our graph into two set of vertices such that the sum of the edge weights between the two partitiions is maximized. 
 
@@ -63,19 +61,26 @@ Or a series of buidlings to visit that is close the optimal.
 \section{Semidefinite Programming}  % objective functions
 
 \subsection{Recap of Linear Programming}
-To give background on semi-definite programming we first start with a brief recap of linear programming. Suppose that you have control over a set of variables and you are attempting to find a selection for each of these variables such that some linear combination is maximized / minimized. To make this more complicated suppose that these variables each have a constraint that must be met.
+To give background on semi-definite programming, we begin with a brief recap of linear programming.
+Suppose that you have control over a set of variables and you are attempting to find a selection for each of these variables such that some linear combination is either maximized or minimized. 
 
 Formally we can write this out as the following. Suppose that we have \( n \) variables that we have control over which we can represent as:
 \[
 \vec{x} = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix}
 \]
 
-Say for each of these \( n \) variables we have an associated coefficient \( \vec{c} = \begin{bmatrix} c_1, c_2, ..., c_n  \end{bmatrix}^\top \) and in the end we want to pick \( \vec{x} \) such that the linear combinatrion of the two (\( \vec{c} \cdot \vec{x} \)) is
-\[
-\min \vec{c} \cdot \vec{x}
-\]
+This problem is made trivial as we can set \( \vec{x} \) to be arbitrarily large or small value depending on the optimization direction.
+The solution becomes more meaningful if each variable has a constraint that must be met.
 
-Without constraints the problem is trivial as we just set \( \vec{x} \) to an arbitrarily large / small value depending on the problem. Suppose that we must also satisfy a system of equations. We let \( \vec{a}_i \) and \( \vec{b} \) be a \( n \) length vectors. Then we want our pick of \( \vec{x} \) to satisfy:
+Say for each of these \( n \) variables we have an associated coefficient \( \vec{c} = \begin{bmatrix} c_1, c_2, ..., c_n  \end{bmatrix}^\top \).
+We would like to find \( \vec{x} \) such that the linear combinatrion of the two (\( \vec{c} \cdot \vec{x} \)) is minimized
+\begin{align*}
+  \begin{array}{ll@{}ll}
+  \min  & \vec{c} \cdot \vec{x}
+  \end{array}
+\end{align*}
+
+We can extend this idea to a system of equations. We define \( \vec{a}_i \) and \( \vec{b} \) to vectors in $\mathbb{R}^n$. We would like to find \( \vec{x} \) such that
 \begin{align*}
 \vec{a}_1 \cdot \vec{x} &= b_1 \\
 \vec{a}_2 \cdot \vec{x} &= b_2 \\
@@ -83,22 +88,41 @@ Without constraints the problem is trivial as we just set \( \vec{x} \) to an ar
 \vec{a}_n \cdot \vec{x} &= b_n \\
 \end{align*}
 
-We can gather our \( \vec{a}_i \) vectors into a single matrix so that we only need to solve:
+Graphically, each constraint creates a \emph{half-space}. 
+The intersection of the halfspaces (the white space) is our solution set. 
+Our goal is the find the minimize value of the intersections.
+\begin{center}
+  \includegraphics[scale=.2]{assets/half_space.jpg}  
+\end{center}
+
+We can gather our \( \vec{a}_i \) vectors into a single matrix. 
+Let $\mathbf{A} = [\vec{a_1}^\top \cdots \vec{a_n}^\top]$.
+Solving the above systems of equations is equivalent to solving:
 \[
 \mathbf{A} \vec{x} = \vec{b}
 \]
 
-In total we can define a linear programming problem as the following where we want to find an optimal \( \vec{x} \):
+In summary, a linear programming asks for an optimal solution, \( \vec{x} \), given a set of linear constraints
+
+
 \begin{align*}
-  \min \vec{c} \cdot \vec{x} \\
-  \mathbf{A} \vec{x} = \vec{b} \\
+  \begin{array}{ll@{}ll}
+    \text{minimize} & \vec{c} \cdot \vec{x}&\\
+    \text{subject to}& \mathbf{A} \vec{x} = \vec{b} 
+    \end{array}
 \end{align*}
 
 
-What is nice about linear programming is that it is a convex optimization problem. Finding a solution to an instance of linear programming can be done with a variety of algorithms including *simplex algorithm* \textbf{\textcolor{red}{TODO: Double check this}}.
+We note that our constraints form a convex set. 
+Thus, linear programming is a subset of a convex optimization problem
+Finding a solution to an instance of linear programming can be done with a variety of algorithms 
+including \emph{simplex algorithm}. 
 
-This is what linear programming solves and is usable in a large variety of problems such as
-\textbf{\textcolor{red}{TODO: Need to find more examples}}.
+Many real world problems can be modelled as a set of linear contraints. One use case arises in manufacturing.
+Given a set of products, how much of each kind should be produced to either minimize cost or maximize profits?
+
+% linear programming usable in a large variety of problems such as
+
 
 \subsection{Formalization of Semidefinite Programming}
 Instead of having just \( n \) variables to pick suppose that we have \( n^2 \) variables. Thus instead of finding a \( \vec{x} \) we are trying to find \( \mathbf{X} \). With more variables comes more constraint so suppose that we \( n \) equations to satisfy. For each equation we have a matrix \( \mathbf{A}_i \) and a scalar value \( b_i \) defining our constraint. Then for a given constraint we have:
