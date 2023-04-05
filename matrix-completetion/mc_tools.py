@@ -4,6 +4,7 @@ forked from https://github.com/JoonyoungYi/MCCO-numpy
 # Import packages
 import cvxpy as cp
 import numpy as np
+import random
 
 def _cp_solver(M, omega):
     """
@@ -35,21 +36,22 @@ def _generate_omega(r, c, m):
     """ 
     sample m data points from (r x c) matrix
     """
-    return np.random.sample(np.array([(i, j) for i in range(r) for j in range(c)]), m)
+    return random.sample([(i, j) for i in range(r) for j in range(c)], m)
 
-
-def mask_image(image, m):
+def mask_image(image, p):
     """ 
     blurs and image
     """
     r,c = image.shape
-    omega = _generate_omega(r,c, m)
+    m = r*c*(1-p)
+    print(r, c, m)
+    # omega = _generate_omega(r,c, m)
 
-    # TODO : simplify?
-    mask = np.zeros((r,c ))
-    for i, j in omega:
-        mask[i, j] = 1
-    return mask
+    # # TODO : simplify?
+    # mask = np.zeros((r,c ))
+    # for i, j in omega:
+    #     mask[i, j] = 1
+    # return mask
 
 def mc_solver(image, m=None):
     '''
