@@ -4,3 +4,5 @@ Report/*.fdb_latexmk
 Report/*.fls 
 Report/*.log 
 Report/*.synctex.gz
+
+*__pycache__*

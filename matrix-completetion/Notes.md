@@ -21,5 +21,11 @@ python -m venv SDP
 source SDP/bin/activate  
 pip install numpy  
 pip install cvxpy  
-pip install fancyimpute  
+```
+
+```
+conda create --name myenv
+conda activate myenv
+conda install numpy scipt  
+conda install -c conda-forge cvxpy
 ```
