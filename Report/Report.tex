@@ -27,7 +27,7 @@
       }
    }
    \end{center}
-   \markboth{Lecture #1: #2}{Lecture #1: #2}
+   \markboth{Lecture: #1: #2}{Lecture: #1: #2}
 }
 
 \begin{document}
@@ -35,8 +35,9 @@
 \lecture{Semidefinite Programming}{}{For approximating Max Cut and Travelling Salesman}
 
 \section{Motivation}
-
+\textbf{\textcolor{red}{TODO: Update this section (matrix completion)}}
 \subsection{Max Cut} % algorithm listings
+\textbf{\textcolor{red}{TODO: Fix}}
 We would like to partition our graph into two set of vertices such that the sum of the edge weights between the two partitiions is maximized. 
 
 Applications include 
@@ -44,6 +45,7 @@ examples: Clustering
 - Intuition: The distances between the two partitiions are the greatest so they have a high likelihood of belonging to two different categories. 
 
 \subsection{Travelling Salesman Problem} % algorithm listings
+\textbf{\textcolor{red}{TODO: Fix}}
 Imagine you are prospective student touring RPI. You have a list of buildings you want to visit.
 You have on hand the distance between each pair of buildings. 
 Is it possible to find a path such that each buidling is visited exactly once? 
@@ -69,10 +71,10 @@ Formally we can write this out as the following. Suppose that we have \( n \) va
 \vec{x} = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix}
 \]
 
-This problem is made trivial as we can set \( \vec{x} \) to be arbitrarily large or small value depending on the optimization direction.
-The solution becomes more meaningful if each variable has a constraint that must be met.
+This problem is made trivial by setting \( \vec{x} \) to be arbitrarily large or small value depending on the optimization direction.
+The solution becomes more meaningful if the domain of each variable is constrainted.
 
-Say for each of these \( n \) variables we have an associated coefficient \( \vec{c} = \begin{bmatrix} c_1, c_2, ..., c_n  \end{bmatrix}^\top \).
+Say for each of these \( n \) variables has an associated coefficient \( \vec{c} = \begin{bmatrix} c_1, c_2, ..., c_n  \end{bmatrix}^\top \).
 We would like to find \( \vec{x} \) such that the linear combinatrion of the two (\( \vec{c} \cdot \vec{x} \)) is minimized
 \begin{align*}
   \begin{array}{ll@{}ll}
@@ -84,7 +86,7 @@ We can extend this idea to a system of equations. We define \( \vec{a}_i \) and 
 \begin{align*}
 \vec{a}_1 \cdot \vec{x} &= b_1 \\
 \vec{a}_2 \cdot \vec{x} &= b_2 \\
-& ...  \\
+& \vdots  \\
 \vec{a}_n \cdot \vec{x} &= b_n \\
 \end{align*}
 
@@ -103,8 +105,6 @@ Solving the above systems of equations is equivalent to solving:
 \]
 
 In summary, a linear programming asks for an optimal solution, \( \vec{x} \), given a set of linear constraints
-
-
 \begin{align*}
   \begin{array}{ll@{}ll}
     \text{minimize} & \vec{c} \cdot \vec{x}&\\
@@ -123,9 +123,8 @@ Given a set of products, how much of each kind should be produced to either mini
 
 % linear programming usable in a large variety of problems such as
 
-
 \subsection{Formalization of Semidefinite Programming}
-Instead of having just \( n \) variables to pick suppose that we have \( n^2 \) variables. Thus instead of finding a \( \vec{x} \) we are trying to find \( \mathbf{X} \). With more variables comes more constraint so suppose that we \( n \) equations to satisfy. For each equation we have a matrix \( \mathbf{A}_i \) and a scalar value \( b_i \) defining our constraint. Then for a given constraint we have:
+Instead of having just \( n \) variables, suppose that we have \( n^2 \) variables. Thus instead of finding a \( \vec{x} \) we are trying to find \( \mathbf{X} \). With more variables comes more constraint so suppose that we \( n \) equations to satisfy. For each equation we have a matrix \( \mathbf{A}_i \) and a scalar value \( b_i \) defining our constraint. Then for a given constraint we have:
 \[
 \mathbf{A}_i \bullet \mathbf{X} = b_i
 \]
@@ -136,7 +135,7 @@ Where the \( \bullet \) operator is simply taking the sum of all elements after 
 \]
 An easy way of
 
-In total we  can write out a rigorous form of Semdefinite programming.
+In total we can write out a rigorous form of Semdefinite programming.
 \begin{align*}
   \min \mathbf{C} \bullet \mathbf{X} \\
   \mathbf{A}_i \bullet \mathbf{X} &= b_i  \text{   for } i = 1, 2, ..., n\\
@@ -172,5 +171,12 @@ i.e. if $p_{ij}$ is close to -1, then we should cut it. We attempt do do somethi
 
 \subsection{Scope and limitations}
 
-\section{References}
+\section{Appendix}
+\newpage
+\subsection{Problem Set} 
+
+\newpage
+\subsection{References}
+https://www.uit.edu.mm/storage/2020/09/WWM-2.pdf
+
 \end{document}
