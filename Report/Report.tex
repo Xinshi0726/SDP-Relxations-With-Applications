@@ -64,7 +64,9 @@ Or a series of buidlings to visit that is close the optimal.
 
 \subsection{Recap of Linear Programming}
 To give background on semi-definite programming, we begin with a brief recap of linear programming.
-Suppose that you have control over a set of variables and you are attempting to find a selection for each of these variables such that some linear combination is either maximized or minimized. 
+Suppose that you have control over a set of variables and you are attempting to find a selection for each of these variables such that some linear combination is either maximized or minimized.
+To give background on semi-definite programming we first start with a brief recap of linear programming.
+To make this more complicated suppose that these variables each have a constraint that must be met.
 
 Formally we can write this out as the following. Suppose that we have \( n \) variables that we have control over which we can represent as:
 \[
@@ -99,7 +101,7 @@ Our goal is the find the minimize value of the intersections.
 
 We can gather our \( \vec{a}_i \) vectors into a single matrix. 
 Let $\mathbf{A} = [\vec{a_1}^\top \cdots \vec{a_n}^\top]$.
-Solving the above systems of equations is equivalent to solving:
+so that we only need to solve:
 \[
 \mathbf{A} \vec{x} = \vec{b}
 \]
@@ -108,39 +110,49 @@ In summary, a linear programming asks for an optimal solution, \( \vec{x} \), gi
 \begin{align*}
   \begin{array}{ll@{}ll}
     \text{minimize} & \vec{c} \cdot \vec{x}&\\
-    \text{subject to}& \mathbf{A} \vec{x} = \vec{b} 
+    \text{subject to}& \mathbf{A} \vec{x} = \vec{b} \\
+    & \vec{x} \geq 0 \\
     \end{array}
 \end{align*}
 
-
-We note that our constraints form a convex set. 
-Thus, linear programming is a subset of a convex optimization problem
-Finding a solution to an instance of linear programming can be done with a variety of algorithms 
-including \emph{simplex algorithm}. 
+It is needed that \( \vec{x} \) is nonnegative (\( \vec{x} \geq 0 \)). We note that our constraints form a convex set.
+Thus, linear programming is a subset of a convex optimization problem.
+Finding a solution to an instance of linear programming can be done with a variety of algorithms including the \emph{simplex algorithm}.
 
 Many real world problems can be modelled as a set of linear contraints. One use case arises in manufacturing.
 Given a set of products, how much of each kind should be produced to either minimize cost or maximize profits?
-
+Linear programming is a general approach of taking a constrained linear optimization problem into a form where a solution can easily be found.
 % linear programming usable in a large variety of problems such as
 
 \subsection{Formalization of Semidefinite Programming}
-Instead of having just \( n \) variables, suppose that we have \( n^2 \) variables. Thus instead of finding a \( \vec{x} \) we are trying to find \( \mathbf{X} \). With more variables comes more constraint so suppose that we \( n \) equations to satisfy. For each equation we have a matrix \( \mathbf{A}_i \) and a scalar value \( b_i \) defining our constraint. Then for a given constraint we have:
+Instead of having just \( n \) variables that we have a matrix \( \mathbf{X} \) of \( n^2 \) elements. Thus instead of finding an optimal \( \vec{x} \) we are trying to find an optimal \( \mathbf{X} \in \mathbb{R}^{n \times n} \) that is symmetric positive semidefinite (SPSD) such that
+\begin{gather*}
+\min = \sum_{i = 1}^n \sum_{j = 1}^n x_{i, j} c_{i , j} \\
+\mathbf{X} \succeq 0 \\
+\end{gather*}
+Where \( c_{i, j} \) is the coefficient corresponding to the \( x_{i, j} \) variable and \( \mathbf{X} \succeq 0 \) ensures that \( \mathbf{X} \) is SPSD. We can gather all \( n^2 \) coefficients into a matrix \( \mathbf{C} \) and then rewrite our minimization term as:
+\[
+\min \mathbf{C} \bullet \mathbf{X}
+\]
+Where the \( \bullet \) operator is simply taking the sum of all elements after doing element wise multiplication on two matricies \( \mathbf{C} \) and \( \mathbf{X} \) with the same shape. Formally we can write it as:
+\[
+  \mathbf{C} \bullet \mathbf{X} = \sum_{i = 1}^n \sum_{j = 1}^n \mathbf{C}_{i, j} \mathbf{X}_{i, j}
+\]
+Of important note is the fact that \( \mathbf{C} \bullet \mathbf{X} = \text{trace}(\mathbf{C}^\top \mathbf{X}) \) where \( \text{trace} \) is the sum of the diagonal terms for a matrix. Calculating the \( \text{trace} \) of the matrix multiplication is not as efficient as the \( \bullet \) operator but the notation comes up quite frequently within the literature so it is important to know.
+
+Returning back to our formalization of SDP, we note that with more variables comes with more constraints. Suppose that we have \( n \) equations to satisfy. For each equation we have a matrix \( \mathbf{A}_i \) and a scalar value \( b_i \) defining our constraint. Then for a given constraint we have:
 \[
 \mathbf{A}_i \bullet \mathbf{X} = b_i
 \]
-
-Where the \( \bullet \) operator is simply taking the sum of all elements after doing element wise multiplication on matricies two matricies \( \mathbf{A} \) and \( \mathbf{X} \) with the same shape. Formally we can write it as:
-\[
-  \mathbf{A} \bullet \mathbf{X} = \sum_{i = 1}^n \sum_{j = 1}^n \mathbf{A}_{i, j} \mathbf{X}_{i, j}
-\]
-An easy way of
-
-In total we can write out a rigorous form of Semdefinite programming.
+This is all that is needed for SDP. We can write this out formally as:
 \begin{align*}
   \min \mathbf{C} \bullet \mathbf{X} \\
   \mathbf{A}_i \bullet \mathbf{X} &= b_i  \text{   for } i = 1, 2, ..., n\\
   \mathbf{X} \succeq 0 \\
 \end{align*}
+
+The parallels between semidefinite programming and linear programming should be quite obvious.
+In many ways, semidefinite programming is linear programming with more variables of control and more constraints.
 
 
 \section{Relaxation}   % objective functions
