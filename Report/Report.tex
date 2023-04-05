@@ -155,7 +155,7 @@ The parallels between semidefinite programming and linear programming should be 
 In many ways, semidefinite programming is linear programming with more variables of control and more constraints.
 
 
-\section{Relaxation}   % objective functions
+\section{Max Cut Relaxation}   % objective functions
 \subsection{Proofs}
 - performance guarantees
 - proof of relaxations (how accurate + how it works)
@@ -185,7 +185,127 @@ i.e. if $p_{ij}$ is close to -1, then we should cut it. We attempt do do somethi
 
 \section{Appendix}
 \newpage
-\subsection{Problem Set} 
+\subsection{Problem Set}
+We will now give one application of semidefinite programming in approximating an NP-Hard problem.
+We will first formalize the SDP and then use to find the approximation.
+
+Consider the max-cut problem where for graph \( G \) the goal is to split the vertices into two disjoint sets \( S \) and \( \overline{S} \) such that the sum of the edges between the two sets is maximum.
+Thus we know that \( S \cup \overline{S} = V(G) \) and \( e(i, j) \) is the weight of the edge between vertex \( v_i \) and vertex \( v_j \).
+Thus our optimization problem is:
+\[
+  \max \sum \{ e(i, j): v_i \in S \text{ and } v_j \in \overline{S} \}
+\]
+We will collect all our edge weights into matrix \( \mathbf{W} \) where \( w_{i, j} \) is the edge weight between vertex \( v_i \) and \( v_j \).
+
+We will work our way towards a formalization of SDP.
+\subsubsection{Question 1.}
+For all of our vertices we have a corresponding variable \( x_i \) such that:
+\begin{gather*}
+x_i \in \{ -1, 1 \} \\
+\text{if } x_i \in S \text{ then } x_i = 1 \\
+\text{if } x_i \in \overline{S} \text{ then } x_i = -1 \\
+\end{gather*}
+Then for two vertices \( v_i, v_j \in V(G) \) what is the inuition behind the following equation:
+\[
+w_{i, j}(1 - x_i x_j)
+\]
+Answer: If \( v_i \) and \( v_j \) are in the same set the above equation will be zero otherwise \( w_{i, j} \) will be returned. The weight will only get returned if the edge between \( v_i \) and \( v_j \) is a cut edge for the sets \( S \) and \( \overline{S} \).
+
+\subsubsection{Question 2.}
+How can we turn \( x_i x_j \) from above into a matrix given that \( \vec{x} = [x_1, x_2, \ldots, x_n] \). This matrix should be square with the number of rows equal to the number of vertices in our graph. \( \mathbf{X}_{i, j} = x_i x_j \):
+Answer:\( \mathbf{X} = \vec{x} \vec{x}^\top \)
+
+\subsubsection{Question 3.}
+What can you say about the values on the diagonal of \( \mathbf{X} \)? Is \( \mathbf{X} \) symmetric?
+
+\subsubsection{Question 4.}
+Before we found that our optimization problem was:
+\[
+  \max \sum \{ e(i, j): v_i \in S \text{ and } v_j \in \overline{S} \}
+\]
+And in question 1. we found that for a single vertex pair we have:
+\[
+w_{i, j}(1 - x_i x_j)
+\]
+How can we rewrite our optimization problem to account for all vertex pairs using \( \mathbf{X} \) and \( \mathbf{W} \) and the \( \bullet \) operator.
+Ensure that in your solution that no edge is counted twice:
+
+Answer:
+\begin{align*}
+ &= \max \frac{1}{2} \left (\sum_{i = 1}^n \sum_{j = 1}^n[ w_{i, j}(1 - x_i x_j) ] \right)\\
+ &= \max  \sum_{i = 1}^n \sum_{j = 1}^n[ w_{i, j} - w_{i, j} x_i x_j ]\\
+ &= \max \frac{1}{2} \left ( \sum_{i = 1}^n \sum_{j = 1}^n[w_{i, j}] - \mathbf{W} \bullet \mathbf{X} \right )
+\end{align*}
+The \( \frac{1}{2} \) comes from the fact that \( \mathbf{X} \) and \( \mathbf{W} \) are symmetric and thus each cut edge is counted twice.
+
+\subsubsection{Question 5.}
+We have formalized the value that we want to maximize in the previous question.
+One of our constraints for SDP is that \( \mathbf{X} \) has to SPSD.
+Thus we know that \( \mathbf{X} \succeq 0 \).
+Currently our constraints are that for \( x_{i, j} \in \mathbf{X} \) that \( x_{i, j} \in \{ -1, 1 \} \).
+Such a hard constraint is more specific than SDP can solve.
+We can relax our problem such that \( \mathbf{X} \succeq 0\) and \( x_{i, i} = 1 \) and dropping our previous \( x_{i, j} \in \{ -1, 1 \} \).
+What is the inuition behind having \( x_{i, i} = 1 \)?
+
+Answer: \( x_{i, i} = 1 \) ensures that vertex \( v_i \) is only in one set. This is represented by \( x_i x_i = 1 \).
+
+Formally write out the SDP problem:
+\begin{gather*}
+\max \frac{1}{2} \left ( \sum_{i = 1}^n \sum_{j = 1}^n[w_{i, j}] - \mathbf{W} \bullet \mathbf{X} \right ) \\
+\mathbf{X}_{i, i} = 1 \\
+\mathbf{X} \succeq 0 \\
+\end{gather*}
+
+\subsubsection{Question 6.}
+We have now formalized an SDP problem for an approximation of the max-cut problem. Solving this will give us a lower bound for the max-cut problem. However we can get an approximate solution.
+In python generate \( n \) random 2-dimensional points.
+Find the distance between each pair of points. Each point will be a vertex in our graph and the pairwise distances between points will be our edges.
+scipy.spatial.distance.cdist is useful for this
+
+Answer:
+\begin{verbatim}
+n = 20
+points = np.random.rand(n, 2)
+adj_matrix = cdist(points, points)
+W = adj_matrix
+\end{verbatim}
+
+Using the cvxpy example as a reference (https://www.cvxpy.org/examples/basic/sdp.html) setup the SDP problem and solve it.
+Your solution should look something like the following (here we set \( n = 5 \)):
+
+\begin{verbatim}
+>>> print(X.value)
+[[ 1.          1.00000039 -1.00000052 -1.00000054  1.00000065]
+ [ 1.00000039  1.         -1.00000055 -1.00000057  1.00000072]
+ [-1.00000052 -1.00000055  1.          1.00000033 -1.00000081]
+ [-1.00000054 -1.00000057  1.00000033  1.         -1.00000083]
+ [ 1.00000065  1.00000072 -1.00000081 -1.00000083  1.        ]]
+\end{verbatim}
+
+What is the lower bound for the max-cut problem?
+
+\subsubsection{Question 7.}
+For a value \( x_{i, j} \) if \( x_{i, j} < 0 \) then \( v_i \) and \( v_j \) are in different sets.
+Determine these two sets, plot the points of these two sets using two different colors and show the result:
+
+\subsubsection{Question 8.}
+What is the value of the max-cut for the two sets that you found?
+
+
+\subsubsection{Extra Credit}
+\begin{itemize}
+\item\label{item:1} The SDP problem that we formulated was an approximation for the max-cut problem - not the optimal solution. If we were able to set \( x_{i, j} \in \{ -1, 1 \} \) then we would have an optimal solution. We will try and see how well the SDP solver did:
+\item\label{item:2}
+Create a brute force max-cut solver and compare the results to what the SDP found.
+\item\label{item:3}
+Note that such a brute force solver will have a \( O(2^n) \) runtime so be careful for large values of \( n \).
+\item\label{item:4}
+Using a simulation approach, how well of a bound does the SDP problem set?
+\item\label{item:5}
+In question 7. we got a potential max-cut. How well does this compare to the actual optimal max-cut?
+\end{itemize}
+
+
 
 \newpage
 \subsection{References}
