@@ -34,20 +34,16 @@
 
 \lecture{Semidefinite Programming}{}{For approximating Max Cut and Travelling Salesman}
 
-\section{Motivation} Linear programming is a common constrained optimization
-problems with uses in fields math, computer science, economics, and buisness.
-The power and ubiquity of linear programming comes from the fact that it can
-solve a wide host of linear constrained optimization problems. Not only can
-solutions can be found, but they can also be found quite quickly. Semidefinite
-programming (SDP) expands on the ideas used within linear programming and
-generalizes them so that they can be applied to even more cases.
+\section{Motivation}
+Linear programming is a common constrained optimization problems with uses in fields math, computer science, economics, and buisness.
+The power and ubiquity of linear programming comes from the fact that it can solve a wide host of linear constrained optimization problems.
+Not only can solutions can be found, but they can also be found quite quickly.
+Semidefinite programming (SDP) expands on the ideas used within linear programming and generalizes them so that they can be applied to even more cases.
 
-Instead of being able to control single variables, we are able to select for an
-entire matrix, with whole matricies of constraints. SDPs are widely used for
-combinatorial optimization - a class of problems that are abundant of network
-science. The notorious NP-Hard problems can be approximated quite well with
-SDPs. The flexibility and speed of finding solutions of what can be represented
-as a SDP problem is what gives it its power.
+Instead of being able to control single variables, we are able to select for an entire matrix, with whole matricies of constraints.
+SDPs are widely used for combinatorial optimization - a class of problems that are abundant of network science.
+The notorious NP-Hard problems can be approximated quite well with SDPs.
+The flexibility and speed of finding solutions of what can be represented as a SDP problem is what gives it its power.
 
 % \subsection{Travelling Salesman Problem} % algorithm listings
 % \textbf{\textcolor{red}{TODO: Fix}}
@@ -215,8 +211,6 @@ The constraint is making sure weighted graph corresponding to X (as a weighted a
 \end{figure}
 \subsection{Performance Guarantees}
 The integrality gap is unbound and the time complexity is polynomial. We will prove it empirically in the Experimental Results.  
-=======
->>>>>>> Stashed changes
 
 \section{Experimental Results}
 \section{Integrality Gap And Running Time}
@@ -269,7 +263,6 @@ To find the Hamiltonian cycle, we set the edge that has value greater than or eq
 \subsection{Scope and limitations}
 
 \section{Appendix}
-\newpage
 \subsection{Problem Set}
 We will now give one application of semidefinite programming in approximating an NP-Hard problem.
 We will first formalize the SDP and then use to find the approximation.
@@ -394,9 +387,12 @@ In question 7. we got a potential max-cut. How well does this compare to the act
 
 \newpage
 \subsection{References}
-https://users.math.msu.edu/users/iwenmark/Teaching/MTH995/Papers/SDP_notes_Marina_Epelman_UM.pdf
-https://www.uit.edu.mm/storage/2020/09/WWM-2.pdf
-https://www.cs.princeton.edu/~arora/pubs/mw-focs.pdf
-https://dl.acm.org/doi/pdf/10.1145/2184319.2184343
-https://www.cs.princeton.edu/~arora/pubs/mw-focs.pdf
+\begin{itemize}
+\item
+https://users.math.msu.edu/users/iwenmark/Teaching/MTH995/Papers/SDP\_notes\_Marina\_Epelman\_UM.pdf
+\item https://www.uit.edu.mm/storage/2020/09/WWM-2.pdf
+\item https://www.cs.princeton.edu/~arora/pubs/mw-focs.pdf
+\item https://dl.acm.org/doi/pdf/10.1145/2184319.2184343
+\item https://www.cs.princeton.edu/~arora/pubs/mw-focs.pdf
+\end{itemize}
 \end{document}
