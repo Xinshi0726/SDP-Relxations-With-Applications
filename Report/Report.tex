@@ -5,7 +5,7 @@
 \usepackage[final]{pdfpages}
 \usepackage[makeroom]{cancel}
 \usepackage{enumitem}
-
+\usepackage[flushleft]{threeparttable}
 \usepackage[normalem]{ulem} 
 
 \newcommand{\lecture}[3]{
@@ -36,27 +36,6 @@
 
 \section{Motivation}
 \textbf{\textcolor{red}{TODO: Update this section (matrix completion)}}
-\subsection{Max Cut} % algorithm listings
-\textbf{\textcolor{red}{TODO: Fix}}
-We would like to partition our graph into two set of vertices such that the sum of the edge weights between the two partitiions is maximized. 
-
-Applications include 
-examples: Clustering
-- Intuition: The distances between the two partitiions are the greatest so they have a high likelihood of belonging to two different categories. 
-
-\subsection{Travelling Salesman Problem} % algorithm listings
-\textbf{\textcolor{red}{TODO: Fix}}
-Imagine you are prospective student touring RPI. You have a list of buildings you want to visit.
-You have on hand the distance between each pair of buildings. 
-Is it possible to find a path such that each buidling is visited exactly once? 
-If so, what is the shortest possible distance you will need to travel. 
-Since you toruing the college, it is likely you have some method of transportation to came from and need to come back to . 
-We have the added constraint that you start at the parking lot and will need to come back to the parking lot.
-This is know as the travelling salesman.
-% One sentence Goal
-As our goal is to find an \emph{efficient} route, we will be satisfied with an approximation. 
-Or a series of buidlings to visit that is close the optimal.
-
 
 % How is this different form the max cut 
 
@@ -155,25 +134,101 @@ The parallels between semidefinite programming and linear programming should be 
 In many ways, semidefinite programming is linear programming with more variables of control and more constraints.
 
 
-\section{Max Cut Relaxation}   % objective functions
-\subsection{Proofs}
-- performance guarantees
-- proof of relaxations (how accurate + how it works)
 
+\section{Relaxation}   % objective functions
+\subsection{Travelling Salesman Problem} % algorithm listings
+Imagine you are prospective student touring RPI. You have a list of buildings you want to visit.
+You have on hand the distance between each pair of buildings. 
+Is it possible to find a path such that each buidling is visited exactly once? 
+If so, what is the shortest possible distance you will need to travel. 
+Since you toruing the college, it is likely you have some method of transportation to came from and need to come back to . 
+We have the added constraint that you start at the parking lot and will need to come back to the parking lot.
+This is know as the travelling salesman.
+% One sentence Goal
+As our goal is to find an \emph{efficient} route, we will be satisfied with an approximation. 
+Or a series of buidlings to visit that is close the optimal.
+\subsection{Relaxation For Traveling Salesman}
+Let $C \in \mathbb{R}^{n \times n}$ denote the matrix of edge costs. Let $J$ denote the all-ones matrix, and $e$ denote the all-ones vector.
+\begin{equation*}
+\begin{aligned}
+& {\text{minimize}}
+& & \frac{1}{2}\text{trace}(CX) \\
+& \text{subject to}
+& & Xe = 2e \\
+&&& X_{ii} = 0, \quad i = 1,\ldots,n\\
+&&& 0 \leq X_{ij} \leq 1, \quad i,j = 1,\ldots,n \\
+&&& 2I - X + (2-2\cos\left(\frac{2\pi}{n}\right))(J-I) \succeq 0 \\
+&&& X \text{ is a real, symmetric } n \times n \text{ matrix}.
+\end{aligned}
+\end{equation*}
 
-Integrality Gap: ratio btwen optimal / relaxation 
-
-
+\noindent X is a fractional adjacency matrix, meaning for $e = \{i, j\}$, $x_{ij} = x_{ji}$ is the proportion of edge $e$ used.
+\subsubsection{Explanation For Each Constraint}
+\begin{enumerate}
+    \item $Xe = 2e$ means the sum of each row in the adjacency matrix should equal to 2. This is trivial as we have an origin and destination as \ref{fig:degrees} suggests. 
+    \item $X_{ii} = 0$ is trivial as the distance from a city to itself is always 0.
+    \item $0 \leq X_{ij} \leq 1, \quad i,j = 1,\ldots,n$ is a relaxation that does not enforce an exact solution. i.e, we can have a fractional value for each edge.
+    \item $2I - X + (2-2\cos\left(\frac{2\pi}{n}\right))(J-I) \succeq 0$ is the tricky part of the formulation. An understanding is not required but an explanation is given below.
+\end{enumerate}
+The constraint $2I - X + (2-2\cos\left(\frac{2\pi}{n}\right))(J-I) \succeq 0$ is related to the idea of graph spectrum, Laplacian of Hamiltonian cycle, and algebraic connectivity. Here are some facts needed in order to understand the meaning of the constraint:
+\begin{enumerate}
+    \item Let $ G_C = (V, E, C)$ denote a C-edge-weighted graph with nonegative edge values, Laplacian $L(G_C)$ is defined as $L(G_C) = diag(r_1,...,r_n)-C$, where $r_i$ is the sum of the i-th row of C.
+    \item $L(G_C)$ is symmetric, positive semidefinite with the smallest eigenvalue $\lambda_1$ = 0 and the corresponding eigenvector $e$.
+    \item The algebraic connectivity $\alpha(G_C)$ is the second smallest eigenvalue of $L(G_C)$. There are two main properties: $(1).\alpha(G_C) = \underset{x \in S}{min}x^TL(G_C)x$ \quad $(2).\alpha(G_C) \geq 0$, and $\alpha(G_C) > 0$ iff $G_C$ is connected. 
+    \item Algebraic connectivity of a Hamiltonian circuit is well known in the theory of graph spectra. The Laplacian of a circuit with n vertices has the spectrum $$2-2 cos(2\pi j/n), j = 1,...,n$$
+    and the second smallest eigenvalue is obtained for $j = 1$ and $j = n-1$, i.e. $\lambda_2 = \lambda_3 = 2-2cos(2\pi/n)$. This value will be denoted by $h_n$, i.e. $h_n = 2-2cos(2\pi/n)$.
+\end{enumerate}
+The constraint is making sure weighted graph corresponding to X (as a weighted adjacency matrix) is at least as connected as a cycle graph, with respect to algebraic connectivity. $2I-x$ gives us the Laplacian matrix corresponding to the weighted graph according to entries of x. $J$ makes sure we ignore trivial eigenvalues of Laplacian $\lambda = 0$. $2-2cos(2\pi/n)$ makes sure that the non-trivial eigenvalues is greater than or equal to the second smallest eigenvalue of a connected Hamiltonian Cycle.
+\begin{figure}[!ht]
+    \centering
+    \includegraphics{assets/degrees.png}
+    \caption{Caption: A node in the Hamiltonian Cycle}
+    \label{fig:degrees}
+\end{figure}
+\subsection{Performance Guarantees}
+The integrality gap is unbound and the time complexity is polynomial. We will prove it empirically in the Experimental Results.  
 
 \section{Experimental Results}
+\section{Integrality Gap And Running Time}
+\begin{table}[!ht]
+\begin{threeparttable}
+\caption{SDP/Brute Force Methods Comparison}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\# Of Nodes & SDP  Time & BF Time  & SDP Objective Value & BF Objective Value & Integrity Gap & Time Ratio \\
+\hline
+10          & 0.7101    & 0.0156   & 53224.4854          & 53228.3976         & 0.9999        & 45.519     \\
+15          & 0.6776    & 0.8224   & 65753.5934          & 67299.5625         & 0.9770        & 0.8239     \\
+20          & 1.2271    & 97.2059  & 69558.9865          & 76199.4928         & 0.9129        & 0.0126     \\
+21          & 1.3689    & 266.7778 & 73969.6527          & 77373.6362         & 0.9560        & 0.0051     \\
+22          & 5.4774    & 657.7847 & 66459.7265          & 68245.9576         & 0.9738        & 0.0083     \\
+ \hline
+\end{tabular}
+\begin{tablenotes}
+      \small
+      \item 1. BF denotes the brute force method and was implemented using dynamic programming
+      \item 2. Integrity Gap is the ratio between SDP Objective Value and BF Objective Value\\
+    \end{tablenotes}
+\end{threeparttable}
+\end{table}
 \subsection{Visualization}
-- table of result
-- for small examples, we find the acutal solution (brute force), or a solution (integer programming) and check how 
-good our bound is
-
-vhttps://www.cs.cmu.edu/~anupamg/adv-approx/lecture14.pdf used "randomized rounding" to find a max cut.
-i.e. if $p_{ij}$ is close to -1, then we should cut it. We attempt do do something similar
-
+To find the Hamiltonian cycle, we set the edge that has value greater than or equal to the $3^rd$ largest value in that row to 1 and else 0 to find the adjacency matrix. Then we use the adjacency matrix and coordinates of points to plot the results.
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{assets/tsp7.png}
+    \includegraphics[width=0.3\textwidth]{assets/tsp-10.png}
+    \includegraphics[width=0.3\textwidth]{assets/tsp-15-works.png}
+    \caption{Sets of the Problems that SDP Relaxation is able to find a correct Solution}
+    \label{fig:my_label}
+\end{figure}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{assets/tsp-15.png}
+    \includegraphics[width=0.3\textwidth]{assets/tsp-20.png}
+    \includegraphics[width=0.3\textwidth]{assets/tsp-30.png}
+    \caption{Sets of the Problems that SDP Relaxation is unable to find a correct Solution}
+    \label{fig:my_label}
+\end{figure}
 \section{Discussion}
 
 
