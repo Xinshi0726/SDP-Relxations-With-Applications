@@ -6,6 +6,7 @@ Report/*.fdb_latexmk
 Report/*.fls 
 Report/*.log 
 Report/*.synctex.gz
+Report/*.out
 
 #
 *__pycache__*
