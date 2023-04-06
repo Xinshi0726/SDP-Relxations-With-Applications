@@ -1,10 +1,14 @@
 .DS_Store
+
+# Latex auxiliary files
 Report/*.aux
 Report/*.fdb_latexmk
 Report/*.fls 
 Report/*.log 
 Report/*.synctex.gz
 
+#
 *__pycache__*
 
+# Fashion MNSIT data
 /matrix-completetion/data/*
