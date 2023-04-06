@@ -34,10 +34,35 @@
 
 \lecture{Semidefinite Programming}{}{For approximating Max Cut and Travelling Salesman}
 
-\section{Motivation}
-\textbf{\textcolor{red}{TODO: Update this section (matrix completion)}}
+\section{Motivation} Linear programming is a common constrained optimization
+problems with uses in fields math, computer science, economics, and buisness.
+The power and ubiquity of linear programming comes from the fact that it can
+solve a wide host of linear constrained optimization problems. Not only can
+solutions can be found, but they can also be found quite quickly. Semidefinite
+programming (SDP) expands on the ideas used within linear programming and
+generalizes them so that they can be applied to even more cases.
 
-% How is this different form the max cut 
+Instead of being able to control single variables, we are able to select for an
+entire matrix, with whole matricies of constraints. SDPs are widely used for
+combinatorial optimization - a class of problems that are abundant of network
+science. The notorious NP-Hard problems can be approximated quite well with
+SDPs. The flexibility and speed of finding solutions of what can be represented
+as a SDP problem is what gives it its power.
+
+% \subsection{Travelling Salesman Problem} % algorithm listings
+% \textbf{\textcolor{red}{TODO: Fix}}
+% Imagine you are prospective student touring RPI. You have a list of buildings you want to visit.
+% You have on hand the distance between each pair of buildings.
+% Is it possible to find a path such that each buidling is visited exactly once?
+% If so, what is the shortest possible distance you will need to travel.
+% Since you toruing the college, it is likely you have some method of transportation to came from and need to come back to .
+% We have the added constraint that you start at the parking lot and will need to come back to the parking lot.
+% This is know as the travelling salesman.
+% % One sentence Goal
+% As our goal is to find an \emph{efficient} route, we will be satisfied with an approximation.
+% Or a series of buidlings to visit that is close the optimal.
+
+% How is this different form the max cut
 
 \section{Semidefinite Programming}  % objective functions
 
@@ -133,10 +158,13 @@ This is all that is needed for SDP. We can write this out formally as:
 The parallels between semidefinite programming and linear programming should be quite obvious.
 In many ways, semidefinite programming is linear programming with more variables of control and more constraints.
 
+\subsection{Semidefinite Programming Running Time}
+The only reason why SDP would be useful at all in the first place is if it was
+able to be solved in polynomial time. There are a variety of algorithms that can
+solve SDPs, one such algorithm is Alizadeh's interior point method which runs in:
+\[ \tilde{O}(n^{3.5}) \]
 
-
-\section{Relaxation}   % objective functions
-\subsection{Travelling Salesman Problem} % algorithm listings
+\section{Travelling Salesman Relaxation}   % objective functions
 Imagine you are prospective student touring RPI. You have a list of buildings you want to visit.
 You have on hand the distance between each pair of buildings. 
 Is it possible to find a path such that each buidling is visited exactly once? 
@@ -187,6 +215,8 @@ The constraint is making sure weighted graph corresponding to X (as a weighted a
 \end{figure}
 \subsection{Performance Guarantees}
 The integrality gap is unbound and the time complexity is polynomial. We will prove it empirically in the Experimental Results.  
+=======
+>>>>>>> Stashed changes
 
 \section{Experimental Results}
 \section{Integrality Gap And Running Time}
@@ -364,6 +394,9 @@ In question 7. we got a potential max-cut. How well does this compare to the act
 
 \newpage
 \subsection{References}
+https://users.math.msu.edu/users/iwenmark/Teaching/MTH995/Papers/SDP_notes_Marina_Epelman_UM.pdf
 https://www.uit.edu.mm/storage/2020/09/WWM-2.pdf
-
+https://www.cs.princeton.edu/~arora/pubs/mw-focs.pdf
+https://dl.acm.org/doi/pdf/10.1145/2184319.2184343
+https://www.cs.princeton.edu/~arora/pubs/mw-focs.pdf
 \end{document}
