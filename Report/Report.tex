@@ -321,17 +321,17 @@ We then show how it performs with some low rank images.
 
 \subsection{Relaxation}
 
-Suppose we have a low rank matrix $\mathbb{M}$. We have a set of location $\Omega$ describing
-our sampling. That is, if $(i,j) \in \Omega$, we observe entry $M_{ij}$. Given $\mathbb{M}$ is low rank, 
+Suppose we have a low rank matrix $\mathbf{M}$. We have a set of location $\Omega$ describing
+our sampling. That is, if $(i,j) \in \Omega$, we observe entry $M_{ij}$. Given $\mathbf{M}$ is low rank, 
 it seems resonable that we would like to solve the following optimization problem
 
 \begin{equation*}
   \begin{aligned}
   & {\text{minimize}}
-  & & \text{rank}(\mathbb{X}) \\[1pt]
+  & & \text{rank}(\mathbf{X}) \\[1pt]
   & \text{subject to}
   & & X_{ij} = M_{ij} \quad (i,j) \in \Omega\\[1pt]
-  &&& \mathbb{X} \in \mathbf{R}^{n \times n}
+  &&& \mathbf{X} \in \mathbb{R}^{n \times n}
   \end{aligned}
 \end{equation*}
 
@@ -342,7 +342,7 @@ However, the rank is not a convex. The above problem is very hard to solve. In f
 We instead rely on the nuclear norm, a close approximation of the rank. The nuclear norm of a matrix $\mathbf{X}$ is defined as the sum of 
 the eigenvalues.
 \[
-\lVert \mathbb{X} \rVert_* = \sum_{k=1}^n \sigma_k {\mathbf{X}}  
+\lVert \mathbf{X} \rVert_* = \sum_{k=1}^n \sigma_k {\mathbf{X}}  
 \]
 
 For a symmetric positive semi-definite (SPSD) matricies, the nuclear norm is equal to the trace. 
