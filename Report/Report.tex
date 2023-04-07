@@ -260,7 +260,7 @@ SDP is lower then the true optimal solution (as indidcated in BF Objective Value
 are able to find a good lower bound. 
 \subsection{Visualization}
 Our SDP relaxation will yield an objective value respresentive of the lower bound. 
-The final $\mathbf{X}$ matrix is a probability matrix. As such, for an edge with a high value, 
+The final $\mathbf{X}$ matrix is a fractional adjacency matrix. As such, for an edge with a high value,
 it can be intrpreted as a being a high probability of being an edge in the Hamiltonian cycle.
 To find the Hamiltonian cycle, we set the edge that has value greater than or equal to the $3^{rd}$ largest value in that row to 1 and else 0 to find the adjacency matrix. 
 Then we use the adjacency matrix and coordinates of points to plot the results.
