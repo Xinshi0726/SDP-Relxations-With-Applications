@@ -153,7 +153,7 @@ on its two operands and subsequently summing each element. Formally,
 
 Of important note is the fact that \( \mathbf{C} \bullet \mathbf{X} = \text{trace}(\mathbf{C}^\top \mathbf{X}) \) where \( \text{trace} \) is the sum of the diagonal terms for a matrix. Calculating the \( \text{trace} \) of the matrix multiplication is not as efficient as the \( \bullet \) operator but the notation comes up quite frequently within the literature so it is important to know.
 
-Returning back to our formalization of SDP, we note that with more variables comes with more constraints. Suppose that we have \( n \) equations to satisfy. For each equation we have a matrix \( \mathbf{A}_i \) and a scalar value \( b_i \) defining our constraint. Then for a given constraint we have:
+Returning back to our formalization of SDP, we note that with more variables comes with more constraints. Suppose that we have \( m \) equations to satisfy. For each equation we have a matrix \( \mathbf{A}_i \) and a scalar value \( b_i \) defining our constraint. Then for a given constraint we have:
 \[
 \mathbf{A}_i \bullet \mathbf{X} \geq b_i
 \]
@@ -162,16 +162,40 @@ This is all that is needed for SDP. We can write this out formally as:
 \begin{align*}
   \begin{array}{ll@{}ll}
   \min              & \mathbf{C} \bullet \mathbf{X}                   & \\
-  \text{subject to} & \mathbf{A}_i \bullet \mathbf{X} &\geq b_i       & i=1 ,\dots, n\\
+  \text{subject to} & \mathbf{A}_i \bullet \mathbf{X} &\geq b_i       & i=1 ,\dots, m\\
                     & \mathbf{X}                      &\succeq 0
   \end{array}
 \end{align*}
 
 The parallels between semidefinite programming and linear programming should be quite apparent.
 In many ways, semidefinite programming is linear programming with more variables and more constraints.
+\subsection{Semidefinite Programming Duality}
+It won't be explained in depth here, but it is also useful to know what the dual of SDP looks like. From before we know that SDP is defined as
+
+\begin{align*}
+  \begin{array}{ll@{}ll}
+  \min              & \mathbf{C} \bullet \mathbf{X}                   & \\
+  \text{subject to} & \mathbf{A}_i \bullet \mathbf{X} &\geq b_i       & i=1 ,\dots, m\\
+                    & \mathbf{X}                      &\succeq 0
+  \end{array}
+\end{align*}
+We note that we have to satisfy \( m \) equations. Then the dual is defined as:
+\begin{align*}
+  \begin{array}{ll@{}ll}
+    \max              & \sum_{i=1}^m z_i b_i                              & \\
+    \text{such that}  & \sum_{i=1}^m z_i \mathbf{A}_{i} + \mathbf{S} &= \mathbf{C} \\
+                    & \mathbf{S}                      &\succeq 0
+  \end{array}
+\end{align*}
+
+Where we are trying to find a set of scalar values \( z_1, z_2, \ldots, z_m \) such that the dot product \( \vec{z} \cdot \vec{b} \) is maximized while also satisfying that \( \sum_{i=1}^m z_i \mathbf{A}_{i} + \mathbf{S} = \mathbf{C} \) where \( \mathbf{A}_i \) and \( \mathbf{C} \) are from before.
+We know that \( \mathbf{S} \succeq 0 \) which gives us the slightly more intuitive:
+\begin{align*}
+\mathbf{C} - \sum_{i = 1}^m z_i \mathbf{A}_i \succeq 0
+\end{align*}
 
 \subsection{Semidefinite Programming Running Time}
-The only reason why SDP would be useful at all in the first place is if it was able to be solved in polynomial time. 
+The only reason why SDP would be useful at all in the first place is if it was able to be solved in polynomial time.
 There are a variety of algorithms that can solve SDPs. 
 One such algorithm is Alizadeh's interior point method which runs in:
 \[ \tilde{O}(n^{3.5}) \]
@@ -229,7 +253,7 @@ The constraint is making sure weighted graph corresponding to X (as a weighted a
 \subsection{Performance Guarantees}
 The integrality gap is the ratio between our estimated solution and the optimal solution. 
 Due to properties of hamiltonain cycles we will not delve into, the integrality gap is unbounded.
-The time complexity is polynomial. We will prove it empirically in the Experimental Results.  
+The time complexity is polynomial. We will prove it empirically in the Experimental Results.
 
 % \section{Experimental Results}
 \subsection{Integrality Gap And Running Time}
