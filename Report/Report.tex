@@ -50,7 +50,7 @@ We are able to find solutions to a linear program in reasonable time.
 % https://arxiv.org/abs/1810.07896
 Semidefinite programming (SDP) expands on the ideas used within linear programming and generalizes them so that they can be applied to even more cases.
 % Instead of being able to control single variables, we are able to select for an entire matrix, with whole matricies of constraints.
-SDPs are widely used for combinatorial optimization - a class of problems that are of abundance in network science.
+SDPs are widely used for combinatorial optimization --- a class of problems that are of abundance in network science.
 The notorious NP-Hard problems can be approximated quite well with SDPs.
 The flexibility and speed of finding solutions of what can be represented as a SDP problem is what gives it its power. 
 
@@ -229,7 +229,7 @@ The constraint is making sure weighted graph corresponding to X (as a weighted a
 \subsection{Performance Guarantees}
 The integrality gap is the ratio between our estimated solution and the optimal solution. 
 Due to properties of hamiltonain cycles we will not delve into, the integrality gap is unbounded.
-The time complexity is polynomial. We will prove it empirically in the Experimental Results.  
+The time complexity is polynomial.  
 
 % \section{Experimental Results}
 \subsection{Integrality Gap And Running Time}
@@ -261,10 +261,11 @@ are able to find a good lower bound.
 \subsection{Visualization}
 Our SDP relaxation will yield an objective value respresentive of the lower bound. 
 The final $\mathbf{X}$ matrix is a probability matrix. As such, for an edge with a high value, 
-it can be intrpreted as a being a high probability of being an edge in the Hamiltonian cycle.
-To find the Hamiltonian cycle, we set the edge that has value greater than or equal to the $3^{rd}$ largest value in that row to 1 and else 0 to find the adjacency matrix. 
-Then we use the adjacency matrix and coordinates of points to plot the results.
-\begin{figure}[!ht]
+it can be intrpreted as a being a high probability of being an edge in the Hamiltonian cycle. 
+Thus, we can set a threshold. For probabilites higher than the threshold, we say it's part of
+the hamiltonian cycle.
+
+\begin{figure}[htb]
     \centering
     \includegraphics[width=0.3\textwidth]{assets/tsp7.png}
     \includegraphics[width=0.3\textwidth]{assets/tsp-10.png}
@@ -272,7 +273,7 @@ Then we use the adjacency matrix and coordinates of points to plot the results.
     \caption{Sets of the Problems that SDP Relaxation is able to find a reasonable solution}
     \label{fig:TSP Graph}
 \end{figure}
-\begin{figure}[!ht]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=0.3\textwidth]{assets/tsp-15.png}
     \includegraphics[width=0.3\textwidth]{assets/tsp-20.png}
@@ -280,9 +281,9 @@ Then we use the adjacency matrix and coordinates of points to plot the results.
     \caption{Sets of the Problems that SDP Relaxation is unable to find a resonable solution}
     \label{fig:TSP Graph 2}
 \end{figure}
+We find that it is easy to find example that will break the Hamiltonian cycle, but it does lead
+to a visualization. 
 
-
-We find that it is easy to break the Hamiltonian cycle, espically as the the number of nodes increases.
 
 % \section{Discussion}
 
@@ -291,7 +292,7 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 % - what are some easy things to prove?
 % \subsection{Scope and limitations}
 
-\newpage 
+% \newpage 
 \section{Matrix Completetion}
 
 % Analyzing data in high-dime
