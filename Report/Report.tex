@@ -183,7 +183,8 @@ Is it possible to find a path such that each buidling is visited exactly once?
 If so, what is the shortest possible distance you will need to travel. 
 Since you toruing the college, it is likely you have some method of transportation to came from and need to come back to . 
 We have the added constraint that you start at the parking lot and will need to come back to the parking lot.
-This is know as the travelling salesman.
+This is know as the euclidean travelling salesman. We say euclidean as the distances between two points are distances is the 
+two norm. 
 % One sentence Goal
 As our goal is to find an \emph{efficient} route, we will be satisfied with an approximation. 
 Or a series of buidlings to visit that is close the optimal.
@@ -226,7 +227,9 @@ The constraint is making sure weighted graph corresponding to X (as a weighted a
     \label{fig:degrees}
 \end{figure}
 \subsection{Performance Guarantees}
-The integrality gap is unbound and the time complexity is polynomial. We will prove it empirically in the Experimental Results.  
+The integrality gap is the ratio between our estimated solution and the optimal solution. 
+Due to properties of hamiltonain cycles we will not delve into, the integrality gap is unbounded.
+The time complexity is polynomial. We will prove it empirically in the Experimental Results.  
 
 % \section{Experimental Results}
 \subsection{Integrality Gap And Running Time}
@@ -252,8 +255,15 @@ The integrality gap is unbound and the time complexity is polynomial. We will pr
 \end{threeparttable}
 \end{table}
 
+Our SDP solver grows much more slowly as compared to the brute force approch. The objective values of 
+SDP is lower then the true optimal solution (as indidcated in BF Objective Value). For our small examples, we
+are able to find a good lower bound. 
 \subsection{Visualization}
-\textbf{\textcolor{red}{[FIX: Correct Solution???]}}To find the Hamiltonian cycle, we set the edge that has value greater than or equal to the $3^{rd}$ largest value in that row to 1 and else 0 to find the adjacency matrix. Then we use the adjacency matrix and coordinates of points to plot the results.
+Our SDP relaxation will yield an objective value respresentive of the lower bound. 
+The final $\mathbf{X}$ matrix is a probability matrix. As such, for an edge with a high value, 
+it can be intrpreted as a being a high probability of being an edge in the Hamiltonian cycle.
+To find the Hamiltonian cycle, we set the edge that has value greater than or equal to the $3^{rd}$ largest value in that row to 1 and else 0 to find the adjacency matrix. 
+Then we use the adjacency matrix and coordinates of points to plot the results.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.3\textwidth]{assets/tsp7.png}
@@ -270,6 +280,10 @@ The integrality gap is unbound and the time complexity is polynomial. We will pr
     \caption{Sets of the Problems that SDP Relaxation is unable to find a resonable solution}
     \label{fig:TSP Graph 2}
 \end{figure}
+
+
+We find that it is easy to break the Hamiltonian cycle, espically as the the number of nodes increases.
+
 % \section{Discussion}
 
 % - can we prove the runtime
@@ -364,7 +378,6 @@ We test how matrix completion work with the Fashion-MNIST data. Each image is a 
 We corrupt the images by masking a percentage of the pixels. Next, we used the relaxation described above to 
 recover the original image. 
 
-\newpage 
 \begin{figure}[htb]
   \centering
   \includegraphics[scale=.25]{assets/mc-r1.jpg}
