@@ -1,12 +1,16 @@
 .DS_Store
 
 # Latex auxiliary files
-Report/*.aux
-Report/*.fdb_latexmk
-Report/*.fls 
-Report/*.log 
-Report/*.synctex.gz
-Report/*.out
+*.aux
+*.fdb_latexmk
+*.fls 
+*.log 
+*.synctex.gz
+*.out
+*.nav
+*.snm
+*.toc
+*.vrb
 
 #
 *__pycache__*
