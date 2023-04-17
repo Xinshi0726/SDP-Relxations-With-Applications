@@ -61,7 +61,7 @@
 % \usetheme{Singapore}
 % \usetheme{Szeged}
 % \usetheme{Warsaw}
-
+\usepackage[flushleft]{threeparttable}
 %----------------------------------------------------------------------------------------
 %	SELECT COLOR THEME
 %----------------------------------------------------------------------------------------
@@ -172,7 +172,7 @@
 
 \begin{frame}
 	\frametitle{Presentation Overview} % Slide title, remove this command for no title
-	
+
 	\tableofcontents % Output the table of contents (all sections on one slide)
 	% \tableofcontents[pausesections] % Output the table of contents (break sections up across separate slides)
 \end{frame}
@@ -188,6 +188,77 @@
 %----------------------------------------------------------------------------------------
 
 \section{Travelling Salesman}
+\subsection{Overview}
+
+\begin{frame}
+    \frametitle{Reviewing TSP}
+    The Traveling Salesman Problem (TSP) is an optimization problem in which the objective is to find the shortest possible route for a salesman to visit a given set of cities, passing through each city exactly once, and returning to the starting city. It is a well-known NP-hard problem.
+\end{frame}
+
+\subsection{Relaxation}
+\begin{frame}
+\frametitle{Semidefinite Programming Methods for the Symmetric Traveling Salesman Problem
+, 1999}
+Let $C \in \mathbb{R}^{n \times n}$ denote the matrix of edge costs. Let $J$ denote the all-ones matrix, and $e$ denote the all-ones vector.
+\begin{equation*}
+\begin{aligned}
+& {\text{minimize}}
+& & \frac{1}{2}\text{trace}(CX) \\
+& \text{subject to}
+& & Xe = 2e \\
+&&& X_{ii} = 0, \quad i = 1,\ldots,n\\
+&&& 0 \leq X_{ij} \leq 1, \quad i,j = 1,\ldots,n \\
+&&& 2I - X + (2-2\cos\left(\frac{2\pi}{n}\right))(J-I) \succeq 0 \\
+&&& X \text{ is a real, symmetric } n \times n \text{ matrix}.
+\end{aligned}
+\end{equation*}
+
+\noindent X is a fractional adjacency matrix, meaning for $e = \{i, j\}$, $x_{ij} = x_{ji}$ is the proportion of edge $e$ used.
+\end{frame}
+
+\subsection{Experimental Result}
+\begin{frame}
+\frametitle{Integrality Gap And Running Time}
+\item \scalebox{0.6}{
+\begin{table}[!ht]
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\# Of Nodes & SDP  Time & BF Time  & SDP Objective Value & BF Objective Value & Integrity Gap & Time Ratio \\
+\hline
+10          & 0.7101    & 0.0156   & 53224.4854          & 53228.3976         & 0.9999        & 45.519     \\
+15          & 0.6776    & 0.8224   & 65753.5934          & 67299.5625         & 0.9770        & 0.8239     \\
+20          & 1.2271    & 97.2059  & 69558.9865          & 76199.4928         & 0.9129        & 0.0126     \\
+21          & 1.3689    & 266.7778 & 73969.6527          & 77373.6362         & 0.9560        & 0.0051     \\
+22          & 5.4774    & 657.7847 & 66459.7265          & 68245.9576         & 0.9738        & 0.0083     \\
+ \hline
+\end{tabular}
+\end{table}
+}
+\end{frame}
+
+\subsection{Visualization}
+\begin{frame}
+\frametitle{Visualization}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{assets/tsp7.png}
+    \includegraphics[width=0.3\textwidth]{assets/tsp-10.png}
+    \includegraphics[width=0.3\textwidth]{assets/tsp-15-works.png}
+    \caption{reasonable solution}
+    \label{fig:TSP Graph}
+\end{figure}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{assets/tsp-15.png}
+    \includegraphics[width=0.3\textwidth]{assets/tsp-20.png}
+    \includegraphics[width=0.3\textwidth]{assets/tsp-30.png}
+    \caption{unreasonable solution}
+    \label{fig:TSP Graph 2}
+\end{figure}
+
+
+We find that it is easy to break the Hamiltonian cycle, espically as the the number of nodes increases.
+\end{frame}
 %----------------------------------------------------------------------------------------
 %	Matrix Completetion
 %----------------------------------------------------------------------------------------
