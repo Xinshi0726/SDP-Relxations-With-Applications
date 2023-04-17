@@ -214,6 +214,24 @@
 
 \begin{frame}
 	\frametitle{Low rank matrices}
+	\vspace{-5em}
+	\begin{center}
+		{\huge \textbf{Yes!}}
+	\end{center}	
+	\vspace{2em}
+	Given:
+	\begin{itemize}
+		\item The matrix is low rank$^*$
+		\item We have enough sample data 
+		% \item and more ...  (needle in haystack)
+	\end{itemize}
+
+	Note: This does not apply to \emph{all} low-rank matrices. But most.
+	\vspace{1em}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Low rank matrices}
 	\vspace{-3em}
 	\begin{center}
 		{\huge \textbf{Yes!}}
@@ -226,15 +244,19 @@
 		% \item and more ...  (needle in haystack)
 	\end{itemize}
 
-	\
 	Note: This does not apply to \emph{all} low-rank matrices. But most.
+	\vspace{1em}
+
+	\begin{center}
+		\textcolor{blue}{Why low-rank matrices?}		
+	\end{center}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Why is this useful}
 	\begin{enumerate}
 		\item \textbf{Netflix} has an incomplete set of user preferences based off their past watch history. Can they use this 
-		\item 	information to recommend new movies?
+		 	   information to recommend new movies?
 		\item \textbf{Recommendation Engine:} The netflix problem can be extended to general recommendation engines 
 		where a vendor knows some of the user preferences.
 		\item \textbf{Images:} We will give an example of recovering a corrupted image using matrix completetion
@@ -244,6 +266,19 @@
 %------------------------------------------------
 
 \subsection{Relaxation} 
+
+\begin{frame}
+	\frametitle{Relaxing Matrix Completetion to SDP}
+	\vspace{-7em}
+	Suppose we have a low rank matrix $\mathbf{M}$. We have a set of location $\Omega$ describing
+	our sampling. That is, if $(i,j) \in \Omega$, we observe entry $M_{ij}$. 
+	
+	Given $\mathbf{M}$ is low rank, 
+	it seems resonable that we would like to solve the following optimization problem
+	
+
+
+\end{frame}
 
 \begin{frame}
 	\frametitle{Relaxing Matrix Completetion to SDP}
@@ -352,6 +387,7 @@
 
 \begin{frame}
 	\frametitle{Fashion-MNIST}
+	$55 \%$ of data
 	\begin{figure}
 		\centering
 		\includegraphics[scale=.3]{assets/mc_ex1_masked.jpeg}
@@ -360,6 +396,7 @@
 
 \begin{frame}
 	\frametitle{Fashion-MNIST}
+	$55 \%$ of data
 	\begin{figure}
 		\centering
 		\includegraphics[scale=.3]{assets/mc_ex1_unmasked.jpeg}
@@ -368,6 +405,7 @@
 
 \begin{frame}
 	\frametitle{Fashion-MNIST}
+	$55 \%$ of data
 	\begin{figure}
 		\centering
 		\includegraphics[scale=.3]{assets/mc_ex1_orig.jpg}
@@ -376,25 +414,28 @@
 
 \begin{frame}
 	\frametitle{Fashion-MNIST}
+	$50 \%$ of data
 	\begin{figure}
 		\centering
-		\includegraphics[scale=.25]{assets/mc_ex2_masked.jpg}
+		\includegraphics[scale=.2]{assets/mc_ex2_masked.jpeg}
 	\end{figure}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Fashion-MNIST}
+	$50 \%$ of data
 	\begin{figure}
 		\centering
-		\includegraphics[scale=.25]{assets/mc_ex2_unmasked.jpg}
+		\includegraphics[scale=.2]{assets/mc_ex2_unmasked.jpeg}
 	\end{figure}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Fashion-MNIST}
+	$50 \%$ of data
 	\begin{figure}
 		\centering
-		\includegraphics[scale=.25]{assets/mc_ex2_orig.jpg}
+		\includegraphics[scale=.2]{assets/mc_ex2_orig.jpg}
 	\end{figure}
 \end{frame}
 
