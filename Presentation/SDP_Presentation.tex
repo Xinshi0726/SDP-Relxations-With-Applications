@@ -213,22 +213,31 @@
 
 
 \begin{frame}
-	% \frametitle{Low rank matrices}
-	Yes!
+	\frametitle{Low rank matrices}
+	\vspace{-3em}
+	\begin{center}
+		{\huge \textbf{Yes!}}
+	\end{center}	
+	\vspace{2em}
 	Given:
 	\begin{itemize}
-		\item The matrix is low rank 
+		\item The matrix is low rank$^*$
 		\item We have enough sample data 
-		\item and more ...  (needle in haystack)
+		% \item and more ...  (needle in haystack)
 	\end{itemize}
+
+	\
+	Note: This does not apply to \emph{all} low-rank matrices. But most.
 \end{frame}
 
 \begin{frame}
 	\frametitle{Why is this useful}
 	\begin{enumerate}
-		\item \textbf{Netflix} has an incomplete set of user preferences based off their past watch history. They 
-		\item \textbf{Recommendation Engine}
-		\item \textbf{Images}
+		\item \textbf{Netflix} has an incomplete set of user preferences based off their past watch history. Can they use this 
+		\item 	information to recommend new movies?
+		\item \textbf{Recommendation Engine:} The netflix problem can be extended to general recommendation engines 
+		where a vendor knows some of the user preferences.
+		\item \textbf{Images:} We will give an example of recovering a corrupted image using matrix completetion
 	\end{enumerate}
 \end{frame}
 
@@ -369,7 +378,7 @@
 	\frametitle{Fashion-MNIST}
 	\begin{figure}
 		\centering
-		\includegraphics[scale=.3]{assets/mc_ex2_masked.jpg}
+		\includegraphics[scale=.25]{assets/mc_ex2_masked.jpg}
 	\end{figure}
 \end{frame}
 
@@ -377,7 +386,7 @@
 	\frametitle{Fashion-MNIST}
 	\begin{figure}
 		\centering
-		\includegraphics[scale=.3]{assets/mc_ex2_unmasked.jpg}
+		\includegraphics[scale=.25]{assets/mc_ex2_unmasked.jpg}
 	\end{figure}
 \end{frame}
 
@@ -385,7 +394,7 @@
 	\frametitle{Fashion-MNIST}
 	\begin{figure}
 		\centering
-		\includegraphics[scale=.3]{assets/mc_ex2_orig.jpg}
+		\includegraphics[scale=.25]{assets/mc_ex2_orig.jpg}
 	\end{figure}
 \end{frame}
 
@@ -393,30 +402,6 @@
 %----------------------------------------------------------------------------------------
 %	Reference
 %----------------------------------------------------------------------------------------
-
-%------------------------------------------------
-
-\begin{frame}
-	\frametitle{Lists}
-	\framesubtitle{Bullet Points and Numbered Lists} % Optional subtitle
-	
-	\begin{itemize}
-		\item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-		\item Aliquam blandit faucibus nisi, sit amet dapibus enim tempus
-		\begin{itemize}
-			\item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-			\item Nam cursus est eget velit posuere pellentesque
-		\end{itemize}
-		\item Nulla commodo, erat quis gravida posuere, elit lacus lobortis est, quis porttitor odio mauris at libero
-	\end{itemize}
-	
-	\bigskip % Vertical whitespace
-	
-	\begin{enumerate}
-		\item Nam cursus est eget velit posuere pellentesque
-		\item Vestibulum faucibus velit a augue condimentum quis convallis nulla gravida 
-	\end{enumerate}
-\end{frame}
 
 %------------------------------------------------
 
