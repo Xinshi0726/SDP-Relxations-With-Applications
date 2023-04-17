@@ -178,32 +178,78 @@
 \end{frame}
 
 %----------------------------------------------------------------------------------------
-%	PRESENTATION BODY SLIDES
+%	Semidefinite Programming
 %----------------------------------------------------------------------------------------
 
-\section{Text Examples} % Sections are added in order to organize your presentation into discrete blocks, all sections and subsections are automatically output to the table of contents as an overview of the talk but NOT output in the presentation as separate slides
+\section{Semidefinite Programming}
+
+%----------------------------------------------------------------------------------------
+%	Travelling Salesman
+%----------------------------------------------------------------------------------------
+
+\section{Travelling Salesman}
+%----------------------------------------------------------------------------------------
+%	Matrix Completetion
+%----------------------------------------------------------------------------------------
+
+\section{Matrix Completetion} % Sections are added in order to organize your presentation into discrete blocks, all sections and subsections are automatically output to the table of contents as an overview of the talk but NOT output in the presentation as separate slides
 
 %------------------------------------------------
 
-\subsection{Paragraphs and Lists}
+\subsection{Overview}
+%
+\begin{frame}
+	\frametitle{Low rank matrices}
+	\begin{center}
+		Given an incomplete, can we recover the missing values?
+	\end{center}
+	\begin{figure}
+		\centering 
+		\includegraphics[scale=.3]{assets/mc1.jpg}
+		% \caption[]
+		% {\tabular[t]{@{}l@{}}Left: a partially filled matrix \\ Right: filling missing values with matrix comple\endtabular}
+	\end{figure}
+\end{frame}
+
 
 \begin{frame}
-	\frametitle{Paragraphs of Text}
-	
-	Sed iaculis \alert{dapibus gravida}. Morbi sed tortor erat, nec interdum arcu. Sed id lorem lectus. Quisque viverra augue id sem ornare non aliquam nibh tristique. Aenean in ligula nisl. Nulla sed tellus ipsum. Donec vestibulum ligula non lorem vulputate fermentum accumsan neque mollis.
-	
-	\bigskip % Vertical whitespace
-	
-	% Quote example
-	\begin{quote}
-		Sed diam enim, sagittis nec condimentum sit amet, ullamcorper sit amet libero. Aliquam vel dui orci, a porta odio.\\
-		--- Someone, somewhere\ldots
-	\end{quote}
-	
-	\bigskip % Vertical whitespace
-	
-	Nullam id suscipit ipsum. Aenean lobortis commodo sem, ut commodo leo gravida vitae. Pellentesque vehicula ante iaculis arcu pretium rutrum eget sit amet purus. Integer ornare nulla quis neque ultrices lobortis.
+	\frametitle{Low rank matrices}
+	Yes!
+	Given:
+	\begin{itemize}
+		\item The matrix is low rank 
+		\item We have enough sample data
+	\end{itemize}
 \end{frame}
+
+\begin{frame}
+	\frametitle{Why is this useful}
+	\begin{enumerate}
+		\item \textbf{Netflix} has an incomplete set of user preferences based off their past watch history. They 
+		\item \textbf{Recommendation Engine}
+		\item \textbf{Images}
+	\end{enumerate}
+\end{frame}
+
+%------------------------------------------------
+
+\subsection{Relaxation} 
+
+\begin{frame}
+	
+\end{frame}
+
+%------------------------------------------------
+
+\subsection{Fashion-MNIST} 
+
+\begin{frame}
+	
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	EXTRA
+%----------------------------------------------------------------------------------------
 
 %------------------------------------------------
 
