@@ -181,7 +181,7 @@
 %	Semidefinite Programming
 %----------------------------------------------------------------------------------------
 
-\section{Motivation for Linear Programming}
+\section{Formalization of Linear Programming}
 \begin{frame}[label={sec:org0f20b1e}]{Motivation for Semidefinite Programming}
 \begin{itemize}
 \item Linear Programming is a common constrained optimization technique with uses in:
@@ -189,7 +189,7 @@
 \item Math
 \item Computer Science
 \item Economics
-\item Buisness
+\item Business
 \end{itemize}
 \item Wide applicability combined with fast runtimes makes linear programming quite popular
 \end{itemize}
@@ -198,18 +198,21 @@
 \begin{itemize}
 \item Semidefinite programming (SDP) expands upon the ideas of linear programming
 \begin{itemize}
-\item SDP problems are more general
+\item SDP can solve everything that linear programming can and more
 \item Widely used in combinatorial optimzation problems
 \item Many NP-Hard problems can be approximated well with SDP
 \end{itemize}
+\item Both linear programming and semidefinite programming are convex problems
 \end{itemize}
 \end{frame}
 
 \section{Overview of Linear Programming}
 
-\begin{frame}[label={sec:org7e6dba1}]{Motivation for a Linear Program}
+\begin{frame}[label={sec:org7e6dba1}]{Formalization of Linear Programming}
 \begin{itemize}
 \item Suppose that we have control over a set of variables: \(\vec{x} = [x_1, x_2, \ldots, x_n]^\top\)
+\pause
+\item Furthermore we often constraint \(\vec{x}\) to be non-negative: \(\vec{x} \geq 0\).
 \end{itemize}
 \pause
 \begin{itemize}
@@ -223,12 +226,9 @@
 \min \vec{c} \cdot \vec{x}
 \]
 \end{frame}
-\begin{frame}[label={sec:orgc3775a6}]{Motivation for a Linear Program}
-\vspace{-3.5em}
-\begin{gather*}
-\min \vec{c} \cdot \vec{x} \\
-\end{gather*}
-
+\begin{frame}[label={sec:orgc3775a6}]{Formalization of Linear Programming}
+\vspace{-1em}
+\[ \min \vec{c} \cdot \vec{x} \]
 \vspace{-1em}
 \begin{itemize}
 \item The problem is quite easy as is. What if each of these \(n\) variables
@@ -257,13 +257,8 @@ take on.
 \[
 \mathbf{A} \vec{x} \geq \vec{b}
 \]
-
 \pause
 \vspace{-2em}
-\begin{itemize}
-\item Furthermore we often constraint \(\vec{x}\) to be non-negative: \(\vec{x} \geq
-  0\).
-\end{itemize}
 \end{frame}
 
 % \begin{frame}[label={sec:org14df325}]{Graphical Representation of Linear Inequalities}
@@ -322,15 +317,18 @@ that we must buy
 \end{itemize}
 \end{frame}
 
-\section{Overview of Semidefinite Programming}
-\section{Overview of Semidefinite Programming}
-\label{sec:orgaf8036d}
 \begin{frame}[label={sec:org73100b6}]{Linear Programming to Semidefinite Programming}
 \begin{itemize}
 \item Semidefinite programming (SDP) takes the concept that linear programming has
 with vectors and generalizes it to matrices.
 \end{itemize}
 
+\begin{itemize}
+\item The \( : \) operator is the Frobenius inner product which is the sum of element wise multiplication on vectors:
+\( \mathbf{C} : \mathbf{X} = \sum_{i = 1}^n \sum_{j = 1}^n c_{i, j} x_{i, j} \)
+\item \( \mathbf{X} \succeq 0 \) means that \( \mathbf{X} \) is positive semi-definite (PSD)
+\end{itemize}
+\noindent\rule{\textwidth}{0.5pt}
 \begin{center}
 \begin{tabular}{ll}
 Linear Programming & Semidefinite Programming\\[0pt]
@@ -338,20 +336,13 @@ Linear Programming & Semidefinite Programming\\[0pt]
 \(\vec{x} \in \mathbb{R}^n\) & \(\mathbf{X} \in \mathbb{R}^{n \times n}\)\\[0pt]
 \(\vec{x} \geq 0\) & \(\mathbf{X} \succeq 0\)\\[0pt]
 \(\vec{c} \in \mathbb{R}^n\) & \(\mathbf{C} \in \mathbb{R}^{n \times n}\)\\[0pt]
-\(\min \vec{c} \cdot \vec{x}\) & \(\min \mathbf{C} \odot \mathbf{X}\)\\[0pt]
+\(\min \vec{c} \cdot \vec{x}\) & \(\min \mathbf{C} : \mathbf{X}\)\\[0pt]
 \(\mathbf{A} \in R^{n \times n}, \vec{b} \in \mathbb{R}^n\) & \(\mathbf{A}_{i} \in R^{n \times n}, \vec{b} \in \mathbb{R}^m\)\\[0pt]
-\(\mathbf{A} \vec{x} \geq \vec{b}\) & \(\mathbf{A}_i \odot \mathbf{X} = b_i : i = 1, \ldots, m\)\\[0pt]
+\(\mathbf{A} \vec{x} \geq \vec{b}\) & \(\mathbf{A}_i : \mathbf{X} = b_i : i = 1, \ldots, m\)\\[0pt]
 \end{tabular}
 \end{center}
 
 \pause
-\noindent\rule{\textwidth}{0.5pt}
-\vspace{-1em}
-\begin{itemize}
-\item The \(\odot\) is the Hadamard operator which is the sum of element wise multiplication:
-\( \mathbf{C} \odot \mathbf{X} = \sum_{i = 1}^n \sum_{j = 1}^n c_{i, j} x_{i, j} \)
-\item \( \mathbf{X} \succeq 0 \) means that \( \mathbf{X} \) is positive semi-definite (PSD)
-\end{itemize}
 \end{frame}
 \begin{frame}[label={sec:org62a97b6}]{Linear Programming to Semidefinite Programming}
 \begin{itemize}
