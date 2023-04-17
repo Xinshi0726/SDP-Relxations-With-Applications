@@ -101,7 +101,7 @@
 \usepackage{palatino} % Use the Palatino font for serif text
 
 %\usepackage{helvet} % Use the Helvetica font for sans serif text
-\usepackage[default]{opensans} % Use the Open Sans font for sans serif text
+% \usepackage[default]{opensans} % Use the Open Sans font for sans serif text
 %\usepackage[default]{FiraSans} % Use the Fira Sans font for sans serif text
 %\usepackage[default]{lato} % Use the Lato font for sans serif text
 
@@ -181,8 +181,245 @@
 %	Semidefinite Programming
 %----------------------------------------------------------------------------------------
 
-\section{Semidefinite Programming}
+\section{Motivation for Linear Programming}
+\begin{frame}[label={sec:org0f20b1e}]{Motivation for Semidefinite Programming}
+\begin{itemize}
+\item Linear Programming is a common constrained optimization technique with uses in:
+\begin{itemize}
+\item Math
+\item Computer Science
+\item Economics
+\item Buisness
+\end{itemize}
+\item Wide applicability combined with fast runtimes makes linear programming quite popular
+\end{itemize}
+\pause
+\noindent\rule{\textwidth}{0.5pt}
+\begin{itemize}
+\item Semidefinite programming (SDP) expands upon the ideas of linear programming
+\begin{itemize}
+\item SDP problems are more general
+\item Widely used in combinatorial optimzation problems
+\item Many NP-Hard problems can be approximated well with SDP
+\end{itemize}
+\end{itemize}
+\end{frame}
 
+\section{Overview of Linear Programming}
+
+\begin{frame}[label={sec:org7e6dba1}]{Motivation for a Linear Program}
+\begin{itemize}
+\item Suppose that we have control over a set of variables: \(\vec{x} = [x_1, x_2, \ldots, x_n]^\top\)
+\end{itemize}
+\pause
+\begin{itemize}
+\item Where for each of these \(n\) variables we have an associated coefficient \(\vec{c} = [c_1, c_2, \ldots, c_n]^\top\)
+\end{itemize}
+\pause
+\begin{itemize}
+\item In the end we want to find the optimal value for the following equation:
+\end{itemize}
+\[
+\min \vec{c} \cdot \vec{x}
+\]
+\end{frame}
+\begin{frame}[label={sec:orgc3775a6}]{Motivation for a Linear Program}
+\vspace{-3.5em}
+\begin{gather*}
+\min \vec{c} \cdot \vec{x} \\
+\end{gather*}
+
+\vspace{-1em}
+\begin{itemize}
+\item The problem is quite easy as is. What if each of these \(n\) variables
+corresponds to how much of a given product that we want to buy?
+\begin{itemize}
+\item This would add additional constraints to what values \(\vec{x}\) could
+take on.
+\end{itemize}
+\end{itemize}
+\pause
+\begin{itemize}
+\item Each variable must satisfy some constraint, we can express this as:
+\end{itemize}
+\vspace{-1.25em}
+\begin{align*}
+\vec{a}_1 \cdot \vec{x} &\geq b_1 \\
+\vec{a}_2 \cdot \vec{x} &\geq b_2 \\
+& \vdots  \\
+\vec{a}_n \cdot \vec{x} &\geq b_n \\
+\end{align*}
+\vspace{-3em}
+
+\pause
+\begin{itemize}
+\item We can gather this into a single expression using a matrix
+\end{itemize}
+\[
+\mathbf{A} \vec{x} \geq \vec{b}
+\]
+
+\pause
+\begin{itemize}
+\item Furthermore we often constraint \(\vec{x}\) to be non-negative: \(\vec{x} \geq
+  0\).
+\end{itemize}
+\end{frame}
+
+% \begin{frame}[label={sec:org14df325}]{Graphical Representation of Linear Inequalities}
+% \begin{itemize}
+% \item Graphically, the \(n\) constraints each create a \emph{half-space}
+% \begin{itemize}
+% \item Each half-space shows the viable region for \(\vec{x}\) given the
+% constraint.
+% \end{itemize}
+% \item The intersection of the half-spaces is the set of possible solutions given by
+% the white space below - also known as the feasible region
+% \end{itemize}
+% \begin{center}
+% \includegraphics[width=.9\linewidth]{./.org-imgs/presentation.org_20230417-154715-fo5yDY.png}
+% \end{center}
+
+% \begin{itemize}
+% \item Our goal is to find the value of \(\vec{x}\) that optimizes \(\min \vec{c}
+%   \cdot \vec{x}\) and is within the feasible region
+% \end{itemize}
+% \end{frame}
+
+\begin{frame}[label={sec:orgc3bccc9}]{Standard Form for a Linear Program}
+\begin{align*}
+  \begin{array}{ll@{}ll}
+    \text{minimize}   & \vec{c} \cdot \vec{x}& \\
+    \text{subject to} & \mathbf{A} \vec{x} &\geq  \vec{b} \\
+                      & \vec{x} &\geq 0 \\
+    \end{array}
+\end{align*}
+\pause
+\begin{itemize}
+\item Where \(\vec{x}\) are the variables that we have control over
+\begin{itemize}
+\item Example: Each variable of \(\vec{x}\) represents how much of a certain
+product to purchase
+\end{itemize}
+\pause
+\item \(\vec{c}\) is a set of corresponding coefficients for the variables of \(\vec{x}\)
+\begin{itemize}
+\item Example: Each variable of \(\vec{c}\) corresponds to how much each product costs
+\end{itemize}
+\pause
+\item \(\min \vec{c} \cdot \vec{x}\) is the function we are trying to optimize
+\begin{itemize}
+\item Example: We want to minimize the cost of buying our products
+\end{itemize}
+\pause
+\item \(\mathbf{A} \vec{x} \geq \vec{b}\) constraints on our solutions. Defines the
+feasible region.
+\begin{itemize}
+\item Example: This could represent the minimum amount of products
+that we must buy
+\end{itemize}
+\pause
+\end{itemize}
+\end{frame}
+
+\section{Overview of Semidefinite Programming}
+\section{Overview of Semidefinite Programming}
+\label{sec:orgaf8036d}
+\begin{frame}[label={sec:org73100b6}]{Linear Programming to Semidefinite Programming}
+\begin{itemize}
+\item Semidefinite programming (SDP) takes the concept that linear programming has
+with vectors and generalizes it to matrices.
+\end{itemize}
+
+\begin{center}
+\begin{tabular}{ll}
+Linear Programming & Semidefinite Programming\\[0pt]
+\hline
+\(\vec{x} \in \mathbb{R}^n\) & \(\mathbf{X} \in \mathbb{R}^{n \times n}\)\\[0pt]
+\(\vec{x} \geq 0\) & \(\mathbf{X} \succeq 0\)\\[0pt]
+\(\vec{c} \in \mathbb{R}^n\) & \(\mathbf{C} \in \mathbb{R}^{n \times n}\)\\[0pt]
+\(\min \vec{c} \cdot \vec{x}\) & \(\min \mathbf{C} \odot \mathbf{X}\)\\[0pt]
+\(\mathbf{A} \in R^{n \times n}, \vec{b} \in \mathbb{R}^n\) & \(\mathbf{A}_{i} \in R^{n \times n}, \vec{b} \in \mathbb{R}^m\)\\[0pt]
+\(\mathbf{A} \vec{x} \geq \vec{b}\) & \(\mathbf{A}_i \odot \mathbf{X} = b_i : i = 1, \ldots, m\)\\[0pt]
+\end{tabular}
+\end{center}
+
+\pause
+\noindent\rule{\textwidth}{0.5pt}
+\vspace{-1em}
+\begin{itemize}
+\item The \(\odot\) is the Hadamard operator which is the sum of element wise multiplication:
+\( \mathbf{C} \odot \mathbf{X} = \sum_{i = 1}^n \sum_{j = 1}^n c_{i, j} x_{i, j} \)
+\item \( \mathbf{X} \succeq 0 \) means that \( \mathbf{X} \) is positive semi-definite (PSD)
+\end{itemize}
+\end{frame}
+\begin{frame}[label={sec:org62a97b6}]{Linear Programming to Semidefinite Programming}
+\begin{itemize}
+\item In total we define a semidefinite program with the following:
+\end{itemize}
+\begin{align*}
+  \begin{array}{ll@{}ll}
+    \text{minimize}   & \vec{c} \cdot \vec{x}& \\
+    \text{subject to} & \mathbf{A} \vec{x} &\geq  \vec{b} \\
+                      & \vec{x} &\geq 0 \\
+    \end{array}
+\end{align*}
+\begin{itemize}
+\item In total we define a semidefinite program with the following:
+\end{itemize}
+\begin{align*}
+  \begin{array}{ll@{}ll}
+  \min              & \mathbf{C} \bullet \mathbf{X}                   & \\
+  \text{subject to} & \mathbf{A}_i \bullet \mathbf{X} &\geq b_i       & i=1 ,\dots, m\\
+                    & \mathbf{X}                      &\succeq 0
+  \end{array}
+\end{align*}
+\end{frame}
+\begin{frame}[label={sec:org94c0d68}]{Semidefinite Programming Duality}
+\begin{itemize}
+\item It is important to note the dual of an SDP problem which is:
+\end{itemize}
+\begin{align*}
+  \begin{array}{ll@{}ll}
+    \max              & \sum_{i=1}^m z_i b_i                              & \\
+    \text{such that}  & \sum_{i=1}^m z_i \mathbf{A}_{i} + \mathbf{S} &= \mathbf{C} \\
+                    & \mathbf{S}                      &\succeq 0
+  \end{array}
+\end{align*}
+\pause
+\begin{itemize}
+\item We are trying to find a set of scalars \(z_1, z_2, \ldots, z_m\)
+\item Where our objective function is \(\vec{z} \cdot \vec{b}\)
+\item We also satisfy the constraint \(\sum_{i=1}^m z_i \mathbf{A}_{i} + \mathbf{S} = \mathbf{C}\) where \(\mathbf{A}_i\) and \(\mathbf{C}\) are from before.
+\end{itemize}
+\pause
+\begin{itemize}
+\item We know that \(\mathbf{S} \succeq 0\) which allows us to get the more intuitive:
+\end{itemize}
+\begin{align*}
+\mathbf{C} - \sum_{i = 1}^m z_i \mathbf{A}_i \succeq 0
+\end{align*}
+
+\begin{itemize}
+\item Pulling it all together:
+\end{itemize}
+\begin{align*}
+  \begin{array}{ll@{}ll}
+    \max              & \sum_{i=1}^m z_i b_i                              & \\
+    \text{such that}  & \mathbf{C} - \sum_{i = 1}^m z_i \mathbf{A}_i &\succeq 0 \\
+  \end{array}
+\end{align*}
+\end{frame}
+
+\begin{frame}[label={sec:org25d1b18}]{Semidefinite Programming Runtime}
+\begin{itemize}
+\item SDPs can be solved in polynomial time which makes them qutie useful.
+\item One algorithm to solve them is Alizadeh's interior point method which runs in:
+\end{itemize}
+\[
+\tilde{O}(n^{3.5})
+\]
+\end{frame}
 %----------------------------------------------------------------------------------------
 %	Travelling Salesman
 %----------------------------------------------------------------------------------------
@@ -580,4 +817,4 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 	\end{columns}
 \end{frame}
 
-\end{document} 
+\end{document}
