@@ -322,8 +322,8 @@ with vectors and generalizes it to matrices.
 \end{itemize}
 
 \begin{itemize}
-\item The \( : \) operator is the Frobenius inner product which is the sum of element wise multiplication on vectors:
-\( \mathbf{C} : \mathbf{X} = \sum_{i = 1}^n \sum_{j = 1}^n c_{i, j} x_{i, j} \)
+\item The \( \langle \rangle_{\mathrm{F}} \) operator is the Frobenius inner product which is the sum of element wise multiplication on vectors:
+\( \langle \mathbf{C},  \mathbf{X} \rangle_{\mathrm{F}} = \sum_{i = 1}^n \sum_{j = 1}^n c_{i, j} x_{i, j} = trace(\mathbf{C}^\top \mathbf{X}) \)
 \item \( \mathbf{X} \succeq 0 \) means that \( \mathbf{X} \) is positive semi-definite (PSD)
 \end{itemize}
 \noindent\rule{\textwidth}{0.5pt}
@@ -334,15 +334,15 @@ Linear Programming & Semidefinite Programming\\[0pt]
 \(\vec{x} \in \mathbb{R}^n\) & \(\mathbf{X} \in \mathbb{R}^{n \times n}\)\\[0pt]
 \(\vec{x} \geq 0\) & \(\mathbf{X} \succeq 0\)\\[0pt]
 \(\vec{c} \in \mathbb{R}^n\) & \(\mathbf{C} \in \mathbb{R}^{n \times n}\)\\[0pt]
-\(\min \vec{c} \cdot \vec{x}\) & \(\min \mathbf{C} : \mathbf{X}\)\\[0pt]
-\(\mathbf{A} \in R^{n \times n}, \vec{b} \in \mathbb{R}^n\) & \(\mathbf{A}_{i} \in R^{n \times n}, \vec{b} \in \mathbb{R}^m\)\\[0pt]
-\(\mathbf{A} \vec{x} \geq \vec{b}\) & \(\mathbf{A}_i : \mathbf{X} = b_i : i = 1, \ldots, m\)\\[0pt]
+\(\min \vec{c} \cdot \vec{x}\) & \(\min \langle \mathbf{C}, \mathbf{X}\rangle_{\mathrm{F}} \)\\[0pt]
+\(\mathbf{A} \in \mathbb{R}^{n \times n}, \vec{b} \in \mathbb{R}^n\) & \(\mathbf{A}_{i} \in \mathbb{R}^{n \times n}, \vec{b} \in \mathbb{R}^m\)\\[0pt]
+\(\mathbf{A} \vec{x} \geq \vec{b}\) & \(\langle \mathbf{A}_i, \mathbf{X}\rangle_{\mathrm{F}} = b_i : i = 1, \ldots, m\)\\[0pt]
 \end{tabular}
 \end{center}
 \end{frame}
 \begin{frame}[label={sec:org62a97b6}]{Linear Programming to Semidefinite Programming}
 \begin{itemize}
-\item In total we define a semidefinite program with the following:
+\item A linear program is defined as:
 \end{itemize}
 \begin{align*}
   \begin{array}{ll@{}ll}
@@ -352,12 +352,12 @@ Linear Programming & Semidefinite Programming\\[0pt]
     \end{array}
 \end{align*}
 \begin{itemize}
-\item In total we define a semidefinite program with the following:
+\item A semidefinite program is defined as:
 \end{itemize}
 \begin{align*}
   \begin{array}{ll@{}ll}
-  \min              & \mathbf{C} \bullet \mathbf{X}                   & \\
-  \text{subject to} & \mathbf{A}_i \bullet \mathbf{X} &\geq b_i       & i=1 ,\dots, m\\
+  \min              & \langle \mathbf{C}, \mathbf{X} \rangle_{\mathrm{F}}                   & \\
+  \text{subject to} & \langle \mathbf{A}_i, \mathbf{X} \rangle_{\mathrm{F}} &\geq b_i       & i=1 ,\dots, m\\
                     & \mathbf{X}                      &\succeq 0
   \end{array}
 \end{align*}
