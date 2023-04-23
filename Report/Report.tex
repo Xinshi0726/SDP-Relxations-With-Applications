@@ -157,14 +157,14 @@ Of important note is the fact that \( \langle \mathbf{C}, \mathbf{X} \rangle_{\m
 
 Returning back to our formalization of SDP, we note that with more variables comes with more constraints. Suppose that we have \( m \) equations to satisfy. For each equation we have a matrix \( \mathbf{A}_i \) and a scalar value \( b_i \) defining our constraint. Then for a given constraint we have:
 \[
-\mathbf{A}_i \bullet \mathbf{X} = b_i
+\langle \mathbf{A}_i, \mathbf{X} \rangle_{\mathrm{F}} = b_i
 \]
 This is all that is needed for SDP. We can write this out formally as:
 
 \begin{align*}
   \begin{array}{ll@{}ll}
-  \min              & \mathbf{C} \bullet \mathbf{X}                   & \\
-  \text{subject to} & \mathbf{A}_i \bullet \mathbf{X} &= b_i       & i=1 ,\dots, m\\
+  \min              & \langle \mathbf{C}, \mathbf{X} \rangle_{\mathrm{F}}                   & \\
+  \text{subject to} & \langle \mathbf{A}_i, \mathbf{X} \rangle_{\mathrm{F}} &= b_i       & i=1 ,\dots, m\\
                     & \mathbf{X}                      &\succeq 0
   \end{array}
 \end{align*}
@@ -176,8 +176,8 @@ It won't be explained in depth here, but it is also useful to know what the dual
 
 \begin{align*}
   \begin{array}{ll@{}ll}
-  \min              & \mathbf{C} \bullet \mathbf{X}                   & \\
-  \text{subject to} & \mathbf{A}_i \bullet \mathbf{X} &= b_i       & i=1 ,\dots, m\\
+  \min              & \langle \mathbf{C}, \mathbf{X} \rangle_{\mathrm{F}}                   & \\
+  \text{subject to} & \langle \mathbf{A}_i, \mathbf{X} \rangle_{\mathrm{F}} &= b_i       & i=1 ,\dots, m\\
                     & \mathbf{X}                      &\succeq 0
   \end{array}
 \end{align*}
@@ -461,14 +461,14 @@ And in question 1. we found that for a single vertex pair we have:
 \[
 w_{i, j}(1 - x_i x_j)
 \]
-How can we rewrite our optimization problem to account for all vertex pairs using \( \mathbf{X} \) and \( \mathbf{W} \) and the \( \bullet \) operator.
+How can we rewrite our optimization problem to account for all vertex pairs using \( \mathbf{X} \) and \( \mathbf{W} \) and the Frobenius inner product.
 Ensure that in your solution that no edge is counted twice:
 
 Answer:
 \begin{align*}
  &= \max \frac{1}{2} \left (\sum_{i = 1}^n \sum_{j = 1}^n[ w_{i, j}(1 - x_i x_j) ] \right)\\
  &= \max  \sum_{i = 1}^n \sum_{j = 1}^n[ w_{i, j} - w_{i, j} x_i x_j ]\\
- &= \max \frac{1}{2} \left ( \sum_{i = 1}^n \sum_{j = 1}^n[w_{i, j}] - \mathbf{W} \bullet \mathbf{X} \right )
+ &= \max \frac{1}{2} \left ( \sum_{i = 1}^n \sum_{j = 1}^n[w_{i, j}] - \langle \mathbf{W}, \mathbf{X} \rangle_{\mathrm{F}} \right )
 \end{align*}
 The \( \frac{1}{2} \) comes from the fact that \( \mathbf{X} \) and \( \mathbf{W} \) are symmetric and thus each cut edge is counted twice.
 
@@ -485,7 +485,7 @@ Answer: \( x_{i, i} = 1 \) ensures that vertex \( v_i \) is only in one set. Thi
 
 Formally write out the SDP problem:
 \begin{gather*}
-\max \frac{1}{2} \left ( \sum_{i = 1}^n \sum_{j = 1}^n[w_{i, j}] - \mathbf{W} \bullet \mathbf{X} \right ) \\
+\max \frac{1}{2} \left ( \sum_{i = 1}^n \sum_{j = 1}^n[w_{i, j}] - \langle \mathbf{W}, \mathbf{X} \rangle_{\mathrm{F}} \right ) \\
 \mathbf{X}_{i, i} = 1 \\
 \mathbf{X} \succeq 0 \\
 \end{gather*}
@@ -520,6 +520,17 @@ What is the lower bound for the max-cut problem?
 
 \subsubsection{Question 7.}
 For a value \( x_{i, j} \) if \( x_{i, j} < 0 \) then \( v_i \) and \( v_j \) are in different sets.
+As an example consider the \( i \)-th row of our solution matrix.
+The \( i \)-th entry in the row will always be \( 1 \) so let \( v_i \) be part of \( S \).
+If the \( j \)-th entry is positive then we let \( v_j \in S \) and if it is negative \( v_j \in S' \).
+Below we give the first row of our matrix and the resulting sets for our vertices:
+\begin{verbatim}
+[ 1.          1.00000039 -1.00000052 -1.00000054  1.00000065]
+\end{verbatim}
+\begin{gather*}
+S = \{ v_1, v_2, v_5 \} \\
+S' = \{ v_3, v_4 \} \\
+\end{gather*}
 Determine these two sets, plot the points of these two sets using two different colors and show the result:
 
 \subsubsection{Question 8.}
