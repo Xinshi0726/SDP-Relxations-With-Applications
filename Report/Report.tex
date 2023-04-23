@@ -40,15 +40,15 @@
 Linear programming is a common constrained optimization problems with uses in several fields including math, computer science, economics, and buisness.
 % The power and ubiquity of linear programming comes 
 % from the fact that it can solve a wide host of linear constrained optimization problems.
-Seveal real world problems can be modelled as a set of linear contraints, making linear programming a ubiquious construct.
+Seveal real world problems can be modelled as a set of linear contraints, making linear programming a ubiquitous construct.
 % One use case arises in manufacturing. Given a set of products, how much of each kind should be produced to either minimize cost or maximize profits?
 % Linear programming is a general approach of taking a constrained linear optimization problem into a form where a solution can easily be found.
 % linear programming usable in a large variety of problems such as
-We are able to find solutions to a linear program in reasonable time.
+We are able to find solutions to a linear program in polynomial time.
 
 % Not only can solutions can be found, but they can also be found quite quickly.
 % https://arxiv.org/abs/1810.07896
-Semidefinite programming (SDP) expands on the ideas used within linear programming and generalizes them so that they can be applied to even more cases.
+Semidefinite programming (SDP) expands on the ideas used within linear programming and generalizes them so that they can be applied to more problems, including nonlinear optimization problems.
 % Instead of being able to control single variables, we are able to select for an entire matrix, with whole matricies of constraints.
 SDPs are widely used for combinatorial optimization - a class of problems that are of abundance in network science.
 The notorious NP-Hard problems can be approximated quite well with SDPs.
@@ -58,7 +58,7 @@ The flexibility and speed of finding solutions of what can be represented as a S
 % and how it can be used to fill in the data given a sample of a low rank. 
 % We then provide guide on how it can be used to approximate another NP-Complete Problem, Max Cut.
 We will go over how to approximaate a classic NP-Complete problem, the Travelling Salesman 
-and how it can be used to fill in the data given a sample of a low rank. 
+and how it can be used to complete partially filled matricies of low-rank.
 We then provide guide on how it can be used to approximate another NP-Complete Problem, Max Cut.
 
 \section{Semidefinite Programming}  % objective functions
@@ -71,11 +71,12 @@ Formally we can write this out as the following. Suppose that we have \( n \) va
 \vec{x} = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix}
 \]
 
+Say for each of these \( n \) variables has an associated coefficient \( \vec{c} = \begin{bmatrix} c_1, c_2, ..., c_n  \end{bmatrix}^\top \).
+We would like to find \( \vec{x} \) such that \( \vec{c} \cdot \vec{x} \) is minimized
+
 This problem is made trivial by setting \( \vec{x} \) to be arbitrarily large or small value depending on the optimization direction.
 The solution becomes more meaningful if the domain of each variable is constrainted.
 
-Say for each of these \( n \) variables has an associated coefficient \( \vec{c} = \begin{bmatrix} c_1, c_2, ..., c_n  \end{bmatrix}^\top \).
-We would like to find \( \vec{x} \) such that \( \vec{c} \cdot \vec{x} \) is minimized
 \begin{align*}
   \begin{array}{ll@{}ll}
   \min  & \vec{c} \cdot \vec{x}
@@ -85,17 +86,17 @@ We would like to find \( \vec{x} \) such that \( \vec{c} \cdot \vec{x} \) is min
 Suppose we have vectors \( \vec{a}_i \) and \( \vec{b} \) in $\mathbb{R}^n$.
 Extending the above idea to a system of equations, we would like to find \( \vec{x} \) such that
 \begin{align*}
-\vec{a}_1 \cdot \vec{x} &\geq b_1 \\
-\vec{a}_2 \cdot \vec{x} &\geq b_2 \\
+\vec{a}_1 \cdot \vec{x} &\leq b_1 \\
+\vec{a}_2 \cdot \vec{x} &\leq b_2 \\
 & \vdots  \\
-\vec{a}_n \cdot \vec{x} &\geq b_n \\
+\vec{a}_n \cdot \vec{x} &\leq b_n \\
 \end{align*}
 
 \newpage
 
 Graphically, each constraint creates a \emph{half-space}. 
 The intersection of the halfspaces (the white space) is our solution set. 
-Our goal is the find the minimize value of the intersections.\\
+Our goal is the find the value of \( \vec{x} \) within this white space such that our objective function is minimized.\\
 \vspace{-1.3em}
 \begin{figure}[ht]
   \centering
@@ -103,21 +104,23 @@ Our goal is the find the minimize value of the intersections.\\
   \caption{Graphical representation of linear inequalties}
 \end{figure}
 
-We can gather our \( \vec{a}_i \) vectors into a single matrix. 
-Let $\mathbf{A} = [\vec{a_1}^\top \cdots \vec{a_n}^\top]$.
-so that we only need to solve:
+Instead of dealing with inequalities we can transform our constraints into equalities.
+Suppose one of the constraints is \( \vec{a}_{k} \cdot \vec{x} \leq b_{k} \).
+We can introduce a new variable \( x_{n + 1} \) such that \( x_{n + 1} \geq 0 \) and then take our constraint so that it is now \( \vec{a}_k \cdot \vec{x} + x_{n + 1} = b_k \).
+Following this we can gather our \( \vec{a}_i \) vectors into a single matrix.
+Let $\mathbf{A} = [\vec{a_1}^\top \cdots \vec{a_n}^\top]$ so that our constraint becomes:
 \[
-\mathbf{A} \vec{x} \geq \vec{b}
+\mathbf{A} \vec{x} = \vec{b}
 \]
 
-It is often the case we would like \( \vec{x} \) to be nonnegative.
+Additionally we would like \( \vec{x} \) to be nonnegative.
 \[ \vec{x} \geq 0 \]. 
 
-In summary, a linear programming is a technique used to find an optimal solution, \( \vec{x} \) when we are given a set of linear constraints.
+In summary, linear programming is a technique used to find an optimal solution, \( \vec{x} \) to a linear objective function when we are given a set of linear constraints.
 \begin{align*}
   \begin{array}{ll@{}ll}
     \text{minimize}   & \vec{c} \cdot \vec{x}& \\
-    \text{subject to} & \mathbf{A} \vec{x} &\geq  \vec{b} \\
+    \text{subject to} & \mathbf{A} \vec{x} &=  \vec{b} \\
                       & \vec{x} &\geq 0 \\
     \end{array}
 \end{align*}
@@ -133,10 +136,10 @@ Thus instead of finding an optimal \( \vec{x} \in \mathbb{R} \), we'd like to fi
 A common intrepretation of positivity for matricies is \emph{positive semi-definite} (PSD). 
 Positive semidefinite matrices are symmetric and when operated upon, will output a positive number. That is, for 
 arbitrary $\vec{v}$, $\vec{v}^\top\mathbf{X}\vec{v} > 0$.
-We constraint X to be
-positive semi-definite or \( \mathbf{X} \succeq 0 \).
+We constraint \( \mathbf{X} \) to be positive semi-definite or \( \mathbf{X} \succeq 0 \).
 Let \( \mathbf{C} \in \mathbb{R}^{n \times n}\) be a matrix where $c_{i,j}$ is the coefficient corresponding 
-to the \( x_{i, j} \) variable. Generalizing ideas introduced in linear programming, we have
+to the \( x_{i, j} \) variable.
+Generalizing ideas introduced in linear programming, we have
 \begin{align*}
   \begin{array}{ll@{}ll}
   \min & \displaystyle\sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n} x_{i, j} c_{i , j} &\\
@@ -144,25 +147,24 @@ to the \( x_{i, j} \) variable. Generalizing ideas introduced in linear programm
   \end{array}
 \end{align*}
 
-We introduce the \( \bullet \) operator. This is shorthand for performing an element wise matrix multiplication
-on its two operands and subsequently summing each element. Formally,
-% is simply taking the sum of all elements after doing element wise multiplication on two matricies \( \mathbf{C} \) and \( \mathbf{X} \) with the same shape. 
+We introduce the Frobenius inner product which is the sum of element wise multiplication on vectors:
+% is simply taking the sum of all elements after doing element wise multiplication on two matricies \( \mathbf{C} \) and \( \mathbf{X} \) with the same shape.
 \[
-  \mathbf{C} \bullet \mathbf{X} = \sum_{i = 1}^n \sum_{j = 1}^n \mathbf{C}_{i, j} \mathbf{X}_{i, j}
+  \langle \mathbf{C}, \mathbf{X} \rangle_{\mathrm{F}} = \sum_{i = 1}^n \sum_{j = 1}^n \mathbf{C}_{i, j} \mathbf{X}_{i, j}
 \]
 
-Of important note is the fact that \( \mathbf{C} \bullet \mathbf{X} = \text{trace}(\mathbf{C}^\top \mathbf{X}) \) where \( \text{trace} \) is the sum of the diagonal terms for a matrix. Calculating the \( \text{trace} \) of the matrix multiplication is not as efficient as the \( \bullet \) operator but the notation comes up quite frequently within the literature so it is important to know.
+Of important note is the fact that \( \langle \mathbf{C}, \mathbf{X} \rangle_{\mathrm{F}} = \text{trace}(\mathbf{C}^\top \mathbf{X}) \) where \( \text{trace} \) is the sum of the diagonal terms for a matrix. Calculating the \( \text{trace} \) of the matrix multiplication is not as efficient as the Frobenius inner product but the notation comes up quite frequently within the literature making it important to know.
 
 Returning back to our formalization of SDP, we note that with more variables comes with more constraints. Suppose that we have \( m \) equations to satisfy. For each equation we have a matrix \( \mathbf{A}_i \) and a scalar value \( b_i \) defining our constraint. Then for a given constraint we have:
 \[
-\mathbf{A}_i \bullet \mathbf{X} \geq b_i
+\mathbf{A}_i \bullet \mathbf{X} = b_i
 \]
 This is all that is needed for SDP. We can write this out formally as:
 
 \begin{align*}
   \begin{array}{ll@{}ll}
   \min              & \mathbf{C} \bullet \mathbf{X}                   & \\
-  \text{subject to} & \mathbf{A}_i \bullet \mathbf{X} &\geq b_i       & i=1 ,\dots, m\\
+  \text{subject to} & \mathbf{A}_i \bullet \mathbf{X} &= b_i       & i=1 ,\dots, m\\
                     & \mathbf{X}                      &\succeq 0
   \end{array}
 \end{align*}
@@ -175,29 +177,33 @@ It won't be explained in depth here, but it is also useful to know what the dual
 \begin{align*}
   \begin{array}{ll@{}ll}
   \min              & \mathbf{C} \bullet \mathbf{X}                   & \\
-  \text{subject to} & \mathbf{A}_i \bullet \mathbf{X} &\geq b_i       & i=1 ,\dots, m\\
+  \text{subject to} & \mathbf{A}_i \bullet \mathbf{X} &= b_i       & i=1 ,\dots, m\\
                     & \mathbf{X}                      &\succeq 0
   \end{array}
 \end{align*}
 We note that we have to satisfy \( m \) equations. Then the dual is defined as:
 \begin{align*}
   \begin{array}{ll@{}ll}
-    \max              & \sum_{i=1}^m z_i b_i                              & \\
+    \max              & \vec{z} \cdot \vec{b}                              & \\
     \text{such that}  & \sum_{i=1}^m z_i \mathbf{A}_{i} + \mathbf{S} &= \mathbf{C} \\
-                    & \mathbf{S}                      &\succeq 0
+                      & \mathbf{S}                      &\succeq 0
   \end{array}
 \end{align*}
 
 Where we are trying to find a set of scalar values \( z_1, z_2, \ldots, z_m \) such that the dot product \( \vec{z} \cdot \vec{b} \) is maximized while also satisfying that \( \sum_{i=1}^m z_i \mathbf{A}_{i} + \mathbf{S} = \mathbf{C} \) where \( \mathbf{A}_i \) and \( \mathbf{C} \) are from before.
-We know that \( \mathbf{S} \succeq 0 \) which gives us the slightly more intuitive:
+We know that \( \mathbf{S} \succeq 0 \) which gives us the slightly more intuitive and equivalent optimization problem:
+
 \begin{align*}
-\mathbf{C} - \sum_{i = 1}^m z_i \mathbf{A}_i \succeq 0
+  \begin{array}{ll@{}ll}
+    \max              & \vec{z} \cdot \vec{b}                              & \\
+    \text{such that}  & \mathbf{C} - \sum_{i=1}^m z_i \mathbf{A}_{i}  &\succeq 0 \\
+  \end{array}
 \end{align*}
 
 \subsection{Semidefinite Programming Running Time}
 The only reason why SDP would be useful at all in the first place is if it was able to be solved in polynomial time.
 There are a variety of algorithms that can solve SDPs. 
-One such algorithm is Alizadeh's interior point method which runs in:
+One such algorithm is Alizadeh's interior point method \cite{Arora} which runs in:
 \[ \tilde{O}(n^{3.5}) \]
 
 \section{Travelling Salesman Relaxation}   % objective functions
@@ -539,10 +545,10 @@ In question 7. we got a potential max-cut. How well does this compare to the act
 \subsection{References}
 \begin{thebibliography}{12}
 % \item\url{https://users.math.msu.edu/users/iwenmark/Teaching/MTH995/Papers/SDP_notes_Marina_Epelman_UM.pdf}
-\bibitem{} 1.Arora S, Hazan E, Kale S. Fast Algorithms for Approximate Semidefinite Programming Using the Multiplicative Weights Update Method. \url{https://www.cs.princeton.edu/~arora/pubs/mw-focs.pdf}
-\bibitem{} 1.Candès E, Recht B. Exact matrix completion via convex optimization. Communications of the ACM. 2012;55(6):111-119. doi:\url{https://doi.org/10.1145/2184319.2184343}
-\bibitem{} Myo W. A Real Life Application of Linear Programming. 2012;4. \url{https://www.uit.edu.mm/storage/2020/09/WWM-2.pdf}
-\bibitem{} Zhou X, Yang C, Zhao H, Yu W. Low-Rank Modeling and Its Applications in Image Analysis. ACM Computing Surveys. 2014;47(2):1-33. doi:\url{https://doi.org/10.1145/2674559}
+\bibitem{Arora} 1.Arora S, Hazan E, Kale S. Fast Algorithms for Approxim \url{https://www.cs.princeton.edu/~arora/pubs/mw-focs.pdf}
+\bibitem{Candes} 1.Candès E, Recht B. Exact matrix completion via convex optimization. Communications of the ACM. 2012;55(6):111-119. doi:\url{https://doi.org/10.1145/2184319.2184343}
+\bibitem{Myo} Myo W. A Real Life Application of Linear Programming. 2012;4. \url{https://www.uit.edu.mm/storage/2020/09/WWM-2.pdf}
+\bibitem{Zhou} Zhou X, Yang C, Zhao H, Yu W. Low-Rank Modeling and Its Applications in Image Analysis. ACM Computing Surveys. 2014;47(2):1-33. doi:\url{https://doi.org/10.1145/2674559}
 ‌
 \end{thebibliography}
 
