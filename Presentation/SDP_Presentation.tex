@@ -440,6 +440,7 @@ Linear Programming & Semidefinite Programming\\[0pt]
 \subsection{Relaxation}
 \begin{frame}
 \frametitle{Semidefinite Programming Methods for the Symmetric Traveling Salesman Problem
+, 1999, Dragoš Cvetković}
 Let $C \in \mathbb{R}^{n \times n}$ denote the matrix of edge costs. Let $J$ denote the all-ones matrix, and $e$ denote the all-ones vector.
 \begin{equation*}
 \begin{aligned}
@@ -527,6 +528,7 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 		Given an incomplete matrix, can we recover the missing values?
 	\end{center}
 	\begin{figure}
+		\centering
 		\includegraphics[scale=.3]{assets/mc1.jpg}
 		% \caption[]
 		% {\tabular[t]{@{}l@{}}Left: a partially filled matrix \\ Right: filling missing values with matrix comple\endtabular}
@@ -538,10 +540,12 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 	\vspace{-3em}
 	\begin{center}
 		{\huge \textbf{Yes!}}
+	\end{center}
 	\vspace{2em}
 	Given:
 	\begin{itemize}
 		\item The matrix is low rank$^*$
+		\item We have enough sample data
 		% \item and more ...  (needle in haystack)
 	\end{itemize}
 
@@ -551,13 +555,16 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 	\pause
 
 	\begin{center}
+		\textcolor{blue}{Why low-rank matrices?}
 	\end{center}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Why is this useful}
 	\begin{enumerate}
+		\item \textbf{Netflix} has an incomplete set of user preferences based off their past watch history. Can they use this
 		 	   information to recommend new movies?
+		\item \textbf{Recommendation Engine:} The netflix problem can be extended to general recommendation engines
 		where a vendor knows some of the user preferences.
 		\item \textbf{Images:} We will give an example of recovering a corrupted image using matrix completetion
 	\end{enumerate}
@@ -565,12 +572,17 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 
 %------------------------------------------------
 
-\subsection{Relaxation} 
+\subsection{Relaxation}
 
 \begin{frame}
 	\frametitle{Relaxing Matrix Completetion to SDP}
 	Suppose we have a low rank matrix $\mathbf{M}$. We have a set of location $\Omega$ describing
+	our sampling. That is, if $(i,j) \in \Omega$, we observe entry $M_{ij}$.
+
+	Given $\mathbf{M}$ is low rank,
 	it seems resonable that we would like to solve the following optimization problem
+
+	\pause
 
 	\begin{equation*}
 	  \begin{aligned}
@@ -596,11 +608,14 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 		The nuclear norm is a close approximation of the rank.
 	\end{block}
 	\vspace{2em}
+
+	The nuclear norm of a matrix $\mathbf{X}$ is defined as the sum of
 	the singular values.
 	\[
+	\lVert \mathbf{X} \rVert_* = \sum_{k=1}^n \sigma_k ({\mathbf{X}})
 	\]
 	\pause
-	For a symmetric positive semi-definite (SPSD) matricies, the nuclear norm is equal to the trace. 
+	For a symmetric positive semi-definite (SPSD) matricies, the nuclear norm is equal to the trace.
 \end{frame}
 
 \begin{frame}
@@ -613,6 +628,7 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 		& & X_{ij} = M_{ij} \quad (i,j) \in \Omega\\[1pt]
 		&&& \mathbf{X} \in \mathbb{R}^{n \times n}
 		\end{aligned}
+	\end{equation*}
 \end{frame}
 
 
@@ -620,7 +636,7 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 	\frametitle{A better relaxation}
 	What if our matrix is not SPSD
 	\begin{itemize}
-		\item We introduce two matricies $\mathbf{W}_1$ and $\mathbf{W}_2$ 
+		\item We introduce two matricies $\mathbf{W}_1$ and $\mathbf{W}_2$
 	\end{itemize}
 \end{frame}
 
@@ -633,11 +649,12 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 		& & \text{trace}(\mathbf{W}_1) + \text{trace}(\mathbf{W}_2) \\[1pt]
 		& \text{subject to}
 		& & X_{ij} = M_{ij} \quad (i,j) \in \Omega\\[1pt]
+		&&& \begin{bmatrix}
 		  \mathbf{W}_1 & \mathbf{X} \\
 		  \mathbf{X}^\top & \mathbf{W}_2
-		\end{bmatrix} \succeq 0 
+		\end{bmatrix} \succeq 0
 		\end{aligned}
-	  \end{equation*}	
+	  \end{equation*}
 \end{frame}
 
 %------------------------------------------------
@@ -711,6 +728,7 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 
 \begin{frame} % Use [allowframebreaks] to allow automatic splitting across slides if the content is too long
 	\frametitle{References}
+
 	\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below, you may need to use multiple columns and/or reduce the font size further if you have many references
 		\footnotesize % Reduce the font size in the bibliography
 % \item\url{https://users.math.msu.edu/users/iwenmark/Teaching/MTH995/Papers/SDP_notes_Marina_Epelman_UM.pdf}
