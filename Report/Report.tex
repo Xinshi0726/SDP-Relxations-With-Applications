@@ -244,20 +244,11 @@ Let $C \in \mathbb{R}^{n \times n}$ denote the matrix of edge costs. Let $J$ den
 \noindent X is a fractional adjacency matrix, meaning for $e = \{i, j\}$, $x_{ij} = x_{ji}$ is the proportion of edge $e$ used.
 \subsubsection{Explanation For Each Constraint}
 \begin{enumerate}
-    \item $Xe = 2e$ means the sum of each row in the adjacency matrix should equal to 2. This is trivial as we have an origin and destination as \ref{fig:degrees} suggests. 
+    \item $Xe = 2e$ means the sum of each row in the adjacency matrix should equal to 2. This is trivial as we have an origin and destination as \ref{fig:degrees} suggests.
     \item $X_{ii} = 0$ is trivial as the distance from a city to itself is always 0.
     \item $0 \leq X_{ij} \leq 1, \quad i,j = 1,\ldots,n$ is a relaxation that does not enforce an exact solution. i.e, we can have a fractional value for each edge.
-    \item $2I - X + (2-2\cos\left(\frac{2\pi}{n}\right))(J-I) \succeq 0$ is the tricky part of the formulation. An understanding is not required but an explanation is given below.
+    \item $2I - X + (2-2\cos\left(\frac{2\pi}{n}\right))(J-I) \succeq 0$ is the tricky part of the formulation. Basically, the constraint is making sure the weighted graph corresponding to X (as a weighted adjacency matrix) is at least as connected as a cycle graph.
 \end{enumerate}
-The constraint $2I - X + (2-2\cos\left(\frac{2\pi}{n}\right))(J-I) \succeq 0$ is related to the idea of graph spectrum, Laplacian of Hamiltonian cycle, and algebraic connectivity. Here are some facts needed in order to understand the meaning of the constraint:
-\begin{enumerate}
-    \item Let $ G_C = (V, E, C)$ denote a C-edge-weighted graph with nonegative edge values, Laplacian $L(G_C)$ is defined as $L(G_C) = diag(r_1,...,r_n)-C$, where $r_i$ is the sum of the i-th row of C.
-    \item $L(G_C)$ is symmetric, positive semidefinite with the smallest eigenvalue $\lambda_1$ = 0 and the corresponding eigenvector $e$.
-    \item The algebraic connectivity $\alpha(G_C)$ is the second smallest eigenvalue of $L(G_C)$. There are two main properties: $(1).\alpha(G_C) = \underset{x \in S}{min}x^TL(G_C)x$ \quad $(2).\alpha(G_C) \geq 0$, and $\alpha(G_C) > 0$ iff $G_C$ is connected. 
-    \item Algebraic connectivity of a Hamiltonian circuit is well known in the theory of graph spectra. The Laplacian of a circuit with n vertices has the spectrum $$2-2 cos(2\pi j/n), j = 1,...,n$$
-    and the second smallest eigenvalue is obtained for $j = 1$ and $j = n-1$, i.e. $\lambda_2 = \lambda_3 = 2-2cos(2\pi/n)$. This value will be denoted by $h_n$, i.e. $h_n = 2-2cos(2\pi/n)$.
-\end{enumerate}
-The constraint is making sure weighted graph corresponding to X (as a weighted adjacency matrix) is at least as connected as a cycle graph, with respect to algebraic connectivity. $2I-x$ gives us the Laplacian matrix corresponding to the weighted graph according to entries of x. $J$ makes sure we ignore trivial eigenvalues of Laplacian $\lambda = 0$. $2-2cos(2\pi/n)$ makes sure that the non-trivial eigenvalues is greater than or equal to the second smallest eigenvalue of a connected Hamiltonian Cycle.
 \begin{figure}[!ht]
     \centering
     \includegraphics{assets/degrees.png}
