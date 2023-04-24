@@ -553,6 +553,12 @@ After determining these two sets, plot the points of these two sets using two di
 What is the value of the max-cut for the two sets that you found?
 
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[scale=.5]{assets/max-cut-solution.png}
+  \caption{Set 1 is red and Set 2 is blue. Cut edges are given in purple. There is an edge between ever pair of vertices but only cut edges are shown.}
+\end{figure}
+
 \subsubsection{Extra Credit}
 \begin{itemize}
 \item\label{item:1} The SDP problem that we formulated was an approximation for the max-cut problem - not the optimal solution. If we were able to set \( x_{i, j} \in \{ -1, 1 \} \) then we would have an optimal solution. We will try and see how well the SDP solver did:

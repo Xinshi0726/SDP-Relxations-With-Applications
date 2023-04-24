@@ -9,7 +9,7 @@ from scipy.spatial.distance import cdist
 # A * B = trace( A.T @ B )
 #
 # Generate a list of n points and their corresponding adjacency matrix
-n = 20
+n = 50
 points = np.random.rand(n, 2)
 adj_matrix = cdist(points, points)
 W = adj_matrix
@@ -40,16 +40,31 @@ set2 = ~set1
 
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots(figsize=(8, 8))
-ax.scatter(points[set1, 0], points[set1, 1], color = "blue")
-ax.scatter(points[set2, 0], points[set2, 1], color = "orange")
+print(set1)
+point_indices = np.arange(n)
+points1, points2 = np.meshgrid(point_indices, point_indices)
+for index in range(n ** 2):
+    p1, p2 = index // n, index % n
+    if p1 >= p2: continue
+    if set1[p1] == set1[p2]: # both in set1
+        continue
+        ax.plot(points[[p1, p2], 0],
+                points[[p1, p2], 1],
+                alpha = 0.05, color = "green")
+    else:
+        ax.plot(points[[p1, p2], 0],
+                points[[p1, p2], 1],
+                alpha = 0.05, color = "purple")
+
+
+ax.scatter(points[set1, 0], points[set1, 1], color = "blue", s = 100)
+ax.scatter(points[set2, 0], points[set2, 1], color = "red", s = 100)
 ax.set(xticklabels=[], yticklabels = [])  # remove the tick labels
 ax.tick_params(bottom = False, left=False)  # remove the ticks
 ax.set_title(f"Max Cut: {int(np.round(prob.value))}")
-
-# or skip the previous two lines and plot df directly
-# ax = df.plot(x='radians', y='freq: 1x', figsize=(8, 8), legend=False)
-
 plt.show()
+
+
 # print(set1)
 # print(set2)
 # sol[sol > 0] = 0
