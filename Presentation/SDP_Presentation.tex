@@ -238,7 +238,7 @@ take on.
 \end{itemize}
 \pause
 \begin{itemize}
-\item Each variable must satisfy some constraint, we can express this as:
+\item Suppose that our variables must satisfy a set of constraints. We can express this as:
 \end{itemize}
 \vspace{-2em}
 \begin{align*}
@@ -340,7 +340,7 @@ with vectors and generalizes it to matrices.
 \end{itemize}
 
 \begin{itemize}
-\item The \( \langle \rangle_{\mathrm{F}} \) operator is the Frobenius inner product which is the sum of element wise multiplication on vectors:
+\item The \( \langle \rangle_{\mathrm{F}} \) operator is the Frobenius inner product which is the sum of element wise multiplication on matricies:
 \( \langle \mathbf{C},  \mathbf{X} \rangle_{\mathrm{F}} = \sum_{i = 1}^n \sum_{j = 1}^n c_{i, j} x_{i, j} = trace(\mathbf{C}^\top \mathbf{X}) \)
 \item \( \mathbf{X} \succeq 0 \) means that \( \mathbf{X} \) is positive semi-definite (PSD)
 \end{itemize}
@@ -386,7 +386,7 @@ Linear Programming & Semidefinite Programming\\[0pt]
 \end{itemize}
 \begin{align*}
   \begin{array}{ll@{}ll}
-    \max              & \sum_{i=1}^m z_i b_i                              & \\
+    \max              & \vec{z} \cdot \vec{b}                              & \\
     \text{such that}  & \sum_{i=1}^m z_i \mathbf{A}_{i} + \mathbf{S} &= \mathbf{C} \\
                     & \mathbf{S}                      &\succeq 0
   \end{array}
