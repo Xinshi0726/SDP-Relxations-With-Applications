@@ -191,7 +191,7 @@
 \item Economics
 \item Business
 \end{itemize}
-\item Wide applicability combined with fast runtimes makes linear programming quite popular
+\item Wide applicability combined with fast (polynomial) runtimes has made linear programming quite popular
 \end{itemize}
 \pause
 \noindent\rule{\textwidth}{0.5pt}
@@ -242,10 +242,10 @@ take on.
 \end{itemize}
 \vspace{-2em}
 \begin{align*}
-\vec{a}_1 \cdot \vec{x} &\geq b_1 \\
-\vec{a}_2 \cdot \vec{x} &\geq b_2 \\
+\vec{a}_1 \cdot \vec{x} &\leq b_1 \\
+\vec{a}_2 \cdot \vec{x} &\leq b_2 \\
 & \vdots  \\
-\vec{a}_n \cdot \vec{x} &\geq b_n \\
+\vec{a}_n \cdot \vec{x} &\leq b_n \\
 \end{align*}
 \vspace{-3.5em}
 \pause
@@ -253,37 +253,55 @@ take on.
 \item We can gather this into a single expression using a matrix
 \end{itemize}
 \[
-\mathbf{A} \vec{x} \geq \vec{b}
+\mathbf{A} \vec{x} \leq \vec{b}
 \]
 \pause
 \vspace{-2em}
 \end{frame}
 
-% \begin{frame}[label={sec:org14df325}]{Graphical Representation of Linear Inequalities}
-% \begin{itemize}
-% \item Graphically, the \(n\) constraints each create a \emph{half-space}
-% \begin{itemize}
-% \item Each half-space shows the viable region for \(\vec{x}\) given the
-% constraint.
-% \end{itemize}
-% \item The intersection of the half-spaces is the set of possible solutions given by
-% the white space below - also known as the feasible region
-% \end{itemize}
-% \begin{center}
-% \includegraphics[width=.9\linewidth]{./.org-imgs/presentation.org_20230417-154715-fo5yDY.png}
-% \end{center}
+\begin{frame}[label={sec:org14df325}]{Graphical Representation of Linear Inequalities}
+\begin{itemize}
+\item Each of the \(n\) constraints create a \emph{half-space} - the viable region that \( \vec{x} \) can take on.
+\item The intersection of the half-spaces is our solution set / feasible region.
+This is given by the white space below:
+\end{itemize}
 
-% \begin{itemize}
-% \item Our goal is to find the value of \(\vec{x}\) that optimizes \(\min \vec{c}
-%   \cdot \vec{x}\) and is within the feasible region
-% \end{itemize}
-% \end{frame}
+\begin{center}
+\includegraphics[width=.25\linewidth]{assets/half_space.jpg}
+\end{center}
+
+\begin{itemize}
+\item Our goal is to find the value of \(\vec{x}\) that optimizes \(\min \vec{c}
+  \cdot \vec{x}\) and is within the feasible region
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org09c2276}]{Converting Inequalities to Equalities}
+\begin{itemize}
+\item Both linear programming and semidefinite programming are often give with
+inequalities
+\item We can transform an inequality to an equality by introducing a new \(x_{n +
+  1}\) variable. We note that \(x_{n + 1} \geq 0\). As an example:
+\end{itemize}
+\[
+\vec{a}_k \cdot \vec{x} \leq b_k \Longrightarrow \vec{a}_k \cdot \vec{x} + x_{n + 1} = b_k
+\]
+
+\begin{itemize}
+  \item We often prefer these equalities instead of the inequalities.
+		Thus our constraints are:
+\end{itemize}
+\[
+\mathbf{A} \vec{x} = \vec{b}
+\]
+
+\end{frame}
 
 \begin{frame}[label={sec:orgc3bccc9}]{Standard Form for a Linear Program}
 \begin{align*}
   \begin{array}{ll@{}ll}
     \text{minimize}   & \vec{c} \cdot \vec{x}& \\
-    \text{subject to} & \mathbf{A} \vec{x} &\geq  \vec{b} \\
+    \text{subject to} & \mathbf{A} \vec{x} &=  \vec{b} \\
                       & \vec{x} &\geq 0 \\
     \end{array}
 \end{align*}
@@ -305,7 +323,7 @@ product to purchase
 \item Example: We want to minimize the cost of buying our products
 \end{itemize}
 \pause
-\item \(\mathbf{A} \vec{x} \geq \vec{b}\) constraints on our solutions. Defines the
+\item \(\mathbf{A} \vec{x} = \vec{b}\) constraints on our solutions. Defines the
 feasible region.
 \begin{itemize}
 \item Example: This could represent the minimum amount of products
@@ -336,7 +354,7 @@ Linear Programming & Semidefinite Programming\\[0pt]
 \(\vec{c} \in \mathbb{R}^n\) & \(\mathbf{C} \in \mathbb{R}^{n \times n}\)\\[0pt]
 \(\min \vec{c} \cdot \vec{x}\) & \(\min \langle \mathbf{C}, \mathbf{X}\rangle_{\mathrm{F}} \)\\[0pt]
 \(\mathbf{A} \in \mathbb{R}^{n \times n}, \vec{b} \in \mathbb{R}^n\) & \(\mathbf{A}_{i} \in \mathbb{R}^{n \times n}, \vec{b} \in \mathbb{R}^m\)\\[0pt]
-\(\mathbf{A} \vec{x} \geq \vec{b}\) & \(\langle \mathbf{A}_i, \mathbf{X}\rangle_{\mathrm{F}} = b_i : i = 1, \ldots, m\)\\[0pt]
+\(\mathbf{A} \vec{x} = \vec{b}\) & \(\langle \mathbf{A}_i, \mathbf{X}\rangle_{\mathrm{F}} = b_i : i = 1, \ldots, m\)\\[0pt]
 \end{tabular}
 \end{center}
 \end{frame}
@@ -347,7 +365,7 @@ Linear Programming & Semidefinite Programming\\[0pt]
 \begin{align*}
   \begin{array}{ll@{}ll}
     \text{minimize}   & \vec{c} \cdot \vec{x}& \\
-    \text{subject to} & \mathbf{A} \vec{x} &\geq  \vec{b} \\
+    \text{subject to} & \mathbf{A} \vec{x} &=  \vec{b} \\
                       & \vec{x} &\geq 0 \\
     \end{array}
 \end{align*}
@@ -357,7 +375,7 @@ Linear Programming & Semidefinite Programming\\[0pt]
 \begin{align*}
   \begin{array}{ll@{}ll}
   \min              & \langle \mathbf{C}, \mathbf{X} \rangle_{\mathrm{F}}                   & \\
-  \text{subject to} & \langle \mathbf{A}_i, \mathbf{X} \rangle_{\mathrm{F}} &\geq b_i       & i=1 ,\dots, m\\
+  \text{subject to} & \langle \mathbf{A}_i, \mathbf{X} \rangle_{\mathrm{F}} &= b_i       & i=1 ,\dots, m\\
                     & \mathbf{X}                      &\succeq 0
   \end{array}
 \end{align*}
