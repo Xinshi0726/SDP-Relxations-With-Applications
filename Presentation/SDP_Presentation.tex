@@ -606,6 +606,19 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 	For a symmetric positive semi-definite (SPSD) matricies, the nuclear norm is equal to the trace. 
 \end{frame}
 
+\begin{frame}
+	\frametitle{Introduce the nuclear norm}
+	\begin{equation*}
+		\begin{aligned}
+		& {\text{minimize}}
+		& & \text{trace}(\mathbf{X}) \\[1pt]
+		& \text{subject to}
+		& & X_{ij} = M_{ij} \quad (i,j) \in \Omega\\[1pt]
+		&&& \mathbf{X} \in \mathbb{R}^{n \times n}
+		\end{aligned}
+	\end{equation*}	
+\end{frame}
+
 
 \begin{frame}
 	\frametitle{A better relaxation}
