@@ -11,7 +11,7 @@ Semidefinite programming (SDP) expands on the ideas used within linear programmi
 The notorious NP-Hard problems can be approximated quite well with SDPs.
 The flexibility and speed of finding solutions of what can be represented as a SDP problem is what gives it its power. 
 
-We show how to relax the Traveling Salesman (Hamilton Cycle) and Max Cut, both NP-Complete Problem to a SDP as well as matrix completion. 
+We show how to relax the [Traveling Salesman (Hamilton Cycle)](https://github.com/Xinshi0726/SDP-Relxations-With-Applications/tree/main/TSPSolver) and [Max Cut](https://github.com/Xinshi0726/SDP-Relxations-With-Applications/tree/main/max-cut), both NP-Complete Problem to a SDP as well as [matrix completion](https://github.com/Xinshi0726/SDP-Relxations-With-Applications/tree/main/matrix-completetion). 
 
 
 ## Experiments
