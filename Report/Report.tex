@@ -219,6 +219,14 @@ two norm.
 As our goal is to find an \emph{efficient} route, we will be satisfied with an approximation. 
 Or a series of buidlings to visit that is close the optimal.
 \subsection{Relaxation For Traveling Salesman}
+
+% First desribe what the hamiltonian cycle is
+% how the matrix X encodes a  cycle
+
+% Desired or "perfect" SDP
+
+% SDP relaxation
+
 Let $C \in \mathbb{R}^{n \times n}$ denote the matrix of edge costs. Let $J$ denote the all-ones matrix, and $e$ denote the all-ones vector.
 \begin{equation*}
 \begin{aligned}
@@ -256,13 +264,10 @@ The constraint is making sure weighted graph corresponding to X (as a weighted a
     \caption{Caption: A node in the Hamiltonian Cycle}
     \label{fig:degrees}
 \end{figure}
-\subsection{Performance Guarantees}
-The integrality gap is the ratio between our estimated solution and the optimal solution. 
-Due to properties of hamiltonain cycles we will not delve into, the integrality gap is unbounded.
-The time complexity is polynomial. We will prove it empirically in the Experimental Results.
 
-% \section{Experimental Results}
-\subsection{Integrality Gap And Running Time}
+\subsection{Experiments}
+
+\subsubsection{Integrality Gap And Running Time}
 \begin{table}[!ht]
 \begin{threeparttable}
 \caption{SDP/Brute Force Methods Comparison}
@@ -288,7 +293,7 @@ The time complexity is polynomial. We will prove it empirically in the Experimen
 Our SDP solver grows much more slowly as compared to the brute force approch. The objective values of 
 SDP is lower then the true optimal solution (as indidcated in BF Objective Value). For our small examples, we
 are able to find a good lower bound. 
-\subsection{Visualization}
+\subsubsection{Visualization}
 Our SDP relaxation will yield an objective value respresentive of the lower bound. 
 The final $\mathbf{X}$ matrix is a fractional adjacency matrix. As such, for an edge with a high value,
 it can be intrpreted as a being a high probability of being an edge in the Hamiltonian cycle.
@@ -365,8 +370,8 @@ it seems resonable that we would like to solve the following optimization proble
   \end{aligned}
 \end{equation*}
 
-We make the assumption that $|\Omega|$ is sufficiently large and its entries are distributed throughout 
-$\mathbf{X}$ is uniformly distributed. 
+We make the assumption that $|\Omega|$ is sufficiently large and its entries are uniformly distributed throughout 
+$\mathbf{X}$.
 This makes it reasonable to assume there exists only one low rank matrix under the constraints. 
 However, the rank is not a convex. The above problem is very hard to solve. In fact, it is NP-hard. 
 
