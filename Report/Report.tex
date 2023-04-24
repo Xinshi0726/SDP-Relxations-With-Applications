@@ -493,6 +493,13 @@ Formally write out the SDP problem:
 \text{Diag}(X) = 1 \\
 \mathbf{X} \succeq 0 \\
 \end{gather*}
+We can pull out all the constant terms and leave them behind. Thus we can get rid of the \( \frac{1}{2} \left( \sum_{i = 1}^n \sum_{j = 1}^n [w_{i, j}] \right) \) leaving us with:
+\begin{gather*}
+\min \langle \mathbf{W}, \mathbf{X} \rangle_{\mathrm{F}} \\
+% \mathbf{X}_{i, i} = 1 \\
+\text{Diag}(X) = 1 \\
+\mathbf{X} \succeq 0 \\
+\end{gather*}
 
 \subsubsection{Question 6.}
 We have now formalized an SDP problem for an approximation of the max-cut problem. Solving this will give us a lower bound for the max-cut problem. However we can get an approximate solution.
@@ -535,7 +542,8 @@ Below we give the first row of our matrix and the resulting sets for our vertice
 S = \{ v_1, v_2, v_5 \} \\
 S' = \{ v_3, v_4 \} \\
 \end{gather*}
-Determine these two sets, plot the points of these two sets using two different colors and show the result:
+We only need to look at one row of our matrix in order to determine the two sets.
+After determining these two sets, plot the points of these two sets using two different colors and show the result:
 
 \subsubsection{Question 8.}
 What is the value of the max-cut for the two sets that you found?
