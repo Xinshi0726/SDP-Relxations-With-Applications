@@ -505,25 +505,6 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 	\end{figure}
 \end{frame}
 
-
-\begin{frame}
-	\frametitle{Low rank matrices}
-	\vspace{-5em}
-	\begin{center}
-		{\huge \textbf{Yes!}}
-	\end{center}	
-	\vspace{2em}
-	Given:
-	\begin{itemize}
-		\item The matrix is low rank$^*$
-		\item We have enough sample data 
-		% \item and more ...  (needle in haystack)
-	\end{itemize}
-
-	Note: This does not apply to \emph{all} low-rank matrices. But most.
-	\vspace{1em}
-\end{frame}
-
 \begin{frame}
 	\frametitle{Low rank matrices}
 	\vspace{-3em}
@@ -540,6 +521,8 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 
 	Note: This does not apply to \emph{all} low-rank matrices. But most.
 	\vspace{1em}
+
+	\pause
 
 	\begin{center}
 		\textcolor{blue}{Why low-rank matrices?}		
@@ -563,26 +546,14 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 
 \begin{frame}
 	\frametitle{Relaxing Matrix Completetion to SDP}
-	\vspace{-7em}
 	Suppose we have a low rank matrix $\mathbf{M}$. We have a set of location $\Omega$ describing
 	our sampling. That is, if $(i,j) \in \Omega$, we observe entry $M_{ij}$. 
 	
 	Given $\mathbf{M}$ is low rank, 
 	it seems resonable that we would like to solve the following optimization problem
 	
+	\pause 
 
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Relaxing Matrix Completetion to SDP}
-	\vspace{-2.6em}
-	Suppose we have a low rank matrix $\mathbf{M}$. We have a set of location $\Omega$ describing
-	our sampling. That is, if $(i,j) \in \Omega$, we observe entry $M_{ij}$. 
-	
-	Given $\mathbf{M}$ is low rank, 
-	it seems resonable that we would like to solve the following optimization problem
-	
 	\begin{equation*}
 	  \begin{aligned}
 	  & {\text{minimize}}
@@ -593,45 +564,11 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 	  \end{aligned}
 	\end{equation*}
 
-\end{frame}
-
-\begin{frame}
-	\frametitle{Relaxing Matrix Completetion to SDP}
-	Suppose we have a low rank matrix $\mathbf{M}$. We have a set of location $\Omega$ describing
-	our sampling. That is, if $(i,j) \in \Omega$, we observe entry $M_{ij}$. 
-	
-	Given $\mathbf{M}$ is low rank, 
-	it seems resonable that we would like to solve the following optimization problem
-	
-	\begin{equation*}
-	  \begin{aligned}
-	  & {\text{minimize}}
-	  & & \text{rank}(\mathbf{X}) \\[1pt]
-	  & \text{subject to}
-	  & & X_{ij} = M_{ij} \quad (i,j) \in \Omega\\[1pt]
-	  &&& \mathbf{X} \in \mathbb{R}^{n \times n}
-	  \end{aligned}
-	\end{equation*}
+	\pause
 
 	\begin{alertblock}{But...}
 		Rank is not a convex. This turns out to be an NP-Hard Problem.
 	\end{alertblock}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Introduce the nuclear norm}
-	\vspace{-5.5em}
-	\begin{block}{Nuclear Norm}
-		The nuclear norm is a close approximation of the rank.
-	\end{block}
-	\vspace{2em}
-	
-	The nuclear norm of a matrix $\mathbf{X}$ is defined as the sum of 
-	the eigenvalues.
-	\[
-	\lVert \mathbf{X} \rVert_* = \sum_{k=1}^n \sigma_k {\mathbf{X}}  
-	\]
 \end{frame}
 
 \begin{frame}
@@ -643,10 +580,11 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 	\vspace{2em}
 	
 	The nuclear norm of a matrix $\mathbf{X}$ is defined as the sum of 
-	the eigenvalues.
+	the singular values.
 	\[
-	\lVert \mathbf{X} \rVert_* = \sum_{k=1}^n \sigma_k {\mathbf{X}}  
+	\lVert \mathbf{X} \rVert_* = \sum_{k=1}^n \sigma_k ({\mathbf{X}})  
 	\]
+	\pause
 	For a symmetric positive semi-definite (SPSD) matricies, the nuclear norm is equal to the trace. 
 \end{frame}
 
@@ -742,16 +680,6 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 
 
 \section{References}
-
-\begin{frame}
-	\frametitle{Citing References}
-	
-	An example of the \texttt{\textbackslash cite} command to cite within the presentation:
-	
-	\bigskip % Vertical whitespace
-	
-	This statement requires citation \cite{p1,p2}.
-\end{frame}
 
 %------------------------------------------------
 

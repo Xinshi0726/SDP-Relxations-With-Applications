@@ -77,11 +77,11 @@ We would like to find \( \vec{x} \) such that \( \vec{c} \cdot \vec{x} \) is min
 This problem is made trivial by setting \( \vec{x} \) to be arbitrarily large or small value depending on the optimization direction.
 The solution becomes more meaningful if the domain of each variable is constrainted.
 
-\begin{align*}
-  \begin{array}{ll@{}ll}
-  \min  & \vec{c} \cdot \vec{x}
-  \end{array}
-\end{align*}
+% \begin{align*}
+%   \begin{array}{ll@{}ll}
+%   \min  & \vec{c} \cdot \vec{x}
+%   \end{array}
+% \end{align*}
 
 Suppose we have vectors \( \vec{a}_i \) and \( \vec{b} \) in $\mathbb{R}^n$.
 Extending the above idea to a system of equations, we would like to find \( \vec{x} \) such that
@@ -338,9 +338,9 @@ We find that it is easy to break the Hamiltonian cycle, espically as the the num
 Suppose we have a incomplete sampling of some data. Are we able to fill in the missing values? 
 When dealing with low dimensional data, given a representative sampling, it is possible to recover the missing entires. 
 Low rank matrices are special in that they have a sparse set of singular values. This means much 
-of the data can be described in few eigenvector. 
-Eigenvectors describes the variance of the data. Eigenvectors associated with larger eigenvalues 
-retains a larger variance, while eigenvectors of the smaller eigenvalues do not hold as much value. 
+of the data can be described in few singular vectors. 
+Singular vectors describes the variance of the data. Singular vectors associated with larger singular values
+retains a larger variance, while singular vectors of the smaller singular values do not hold as much value. 
 % , which describe the variance of the data.
 
 % Low rank matrices can be compressed quite well as they can usually be decomposed 
@@ -365,14 +365,15 @@ it seems resonable that we would like to solve the following optimization proble
   \end{aligned}
 \end{equation*}
 
-We make the assumption that $|\Omega|$ is sufficiently large and $\mathbb{X}$ is uniformly distrubited. 
+We make the assumption that $|\Omega|$ is sufficiently large and its entries are distributed throughout 
+$\mathbf{X}$ is uniformly distributed. 
 This makes it reasonable to assume there exists only one low rank matrix under the constraints. 
 However, the rank is not a convex. The above problem is very hard to solve. In fact, it is NP-hard. 
 
 We instead rely on the nuclear norm, a close approximation of the rank. The nuclear norm of a matrix $\mathbf{X}$ is defined as the sum of 
-the eigenvalues.
+the singular values.
 \[
-\lVert \mathbf{X} \rVert_* = \sum_{k=1}^n \sigma_k {\mathbf{X}}  
+\lVert \mathbf{X} \rVert_* = \sum_{k=1}^n \sigma_k ({\mathbf{X}})  
 \]
 
 For a symmetric positive semi-definite (SPSD) matricies, the nuclear norm is equal to the trace. 
@@ -470,6 +471,8 @@ Answer:
  &= \max  \sum_{i = 1}^n \sum_{j = 1}^n[ w_{i, j} - w_{i, j} x_i x_j ]\\
  &= \max \frac{1}{2} \left ( \sum_{i = 1}^n \sum_{j = 1}^n[w_{i, j}] - \langle \mathbf{W}, \mathbf{X} \rangle_{\mathrm{F}} \right )
 \end{align*}
+
+Since 
 The \( \frac{1}{2} \) comes from the fact that \( \mathbf{X} \) and \( \mathbf{W} \) are symmetric and thus each cut edge is counted twice.
 
 \subsubsection{Question 5.}
@@ -486,7 +489,8 @@ Answer: \( x_{i, i} = 1 \) ensures that vertex \( v_i \) is only in one set. Thi
 Formally write out the SDP problem:
 \begin{gather*}
 \max \frac{1}{2} \left ( \sum_{i = 1}^n \sum_{j = 1}^n[w_{i, j}] - \langle \mathbf{W}, \mathbf{X} \rangle_{\mathrm{F}} \right ) \\
-\mathbf{X}_{i, i} = 1 \\
+% \mathbf{X}_{i, i} = 1 \\
+\text{Diag}(X) = 1 \\
 \mathbf{X} \succeq 0 \\
 \end{gather*}
 
